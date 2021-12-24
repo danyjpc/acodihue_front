@@ -1,0 +1,27 @@
+
+
+.mat-tab-group {
+    margin-bottom: 48px;
+  }
+
+  .example-spacer {
+    flex: 1 1 auto;
+  }
+  
+
+  .mat-tab-labels,
+  .mat-tab-list{
+    background: whitesmoke !important;
+  }
+
+  .mat-tab-label-container {
+    background: whitesmoke !important;
+  }
+
+  .mat-tab-label-container {
+    display: flex;
+    flex-grow: 1;
+    overflow: hidden;
+    z-index: 1;
+    background: whitesmoke !important;
+}

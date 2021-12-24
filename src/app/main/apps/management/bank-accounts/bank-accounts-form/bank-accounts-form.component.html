@@ -1,0 +1,40 @@
+<form #accountTypeForm="ngForm" fxLayout="column"  fxLayoutAlign="start" fxFlex="1 0 auto">
+    <h1 mat-dialog-title>{{this.title}} Tipo de Cuenta</h1>
+
+    <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
+        <mat-form-field appearance="outline" fxFlex="100" >
+            <mat-label>Nombre de tipo de cuenta</mat-label>
+            <input matInput [(ngModel)]="this.accountType.description" required id="desc" name="desc">
+        </mat-form-field>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
+        <mat-form-field appearance="outline" fxFlex="100" >
+            <mat-label>Codigo interno</mat-label>
+            <input matInput [(ngModel)]="this.accountType.value1" required id="value1" name="value1">
+        </mat-form-field>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
+        <mat-form-field appearance="outline" fxFlex="100" >
+            <mat-label>Interes %</mat-label>
+            <input matInput [(ngModel)]="this.accountType.value3" required id="value3" name="value3">
+        </mat-form-field>
+    </div>
+    <div mat-dialog-actions>
+        <button mat-raised-button (click)="this.matDialogRef.close()" color="warn">cancelar</button>
+        <button *ngIf="this.title == 'Agregar'" class="primary"
+            mat-raised-button 
+            [mat-dialog-close]="this.accountType" 
+            [disabled]="!accountTypeForm.valid"
+            cdkFocusInitial>
+            <span>Agregar</span>
+        </button>
+        <button *ngIf="this.title == 'Editar'" class="primary"
+            mat-raised-button
+            [mat-dialog-close]="this.accountType" 
+            [disabled]="!accountTypeForm.valid"
+            cdkFocusInitial> 
+            <span>Actualizar</span>
+        </button>
+    </div>
+    <br>
+</form>

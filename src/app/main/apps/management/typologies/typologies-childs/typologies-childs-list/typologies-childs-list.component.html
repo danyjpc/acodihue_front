@@ -1,0 +1,108 @@
+<div id="error-500" fxLayout="column" fxLayoutAlign="center center" *ngIf="!parentTypologyToShow.typologyId">
+
+    <div class="content" fxLayout="column" fxLayoutAlign="center center">
+
+
+        <div class="message">Seleccione un catalogo!</div>
+    </div>
+
+</div>
+<div id="orders" class="page-layout carded fullwidth inner-scroll" *ngIf="parentTypologyToShow.typologyId">
+
+
+    <!-- CENTER -->
+    <div class="center">
+
+        <!-- HEADER -->
+        <div fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-xs="row" fxLayoutAlign.gt-xs="space-between center">
+
+            <!-- APP TITLE -->
+            <div class="logo mb-24 mb-sm-0" fxLayout="row" fxLayoutAlign="start center">
+                <h2> {{parentTypologyToShow.description}}</h2>
+            </div>
+            <!-- / APP TITLE -->
+
+            <!-- SEARCH -->
+            <div class="search-wrapper  ml-sm-32">
+                <div class="search" fxFlex fxLayout="row" fxLayoutAlign="start center">
+                    <mat-icon>search</mat-icon>
+                    <input [formControl]="searchInput" placeholder="Busque una subcategoria">
+                </div>
+            </div>
+            <div class="ml-sm-32">
+                <div class="search" fxFlex fxLayout="row" fxLayoutAlign="start end">
+                    <button mat-icon-button [matMenuTriggerFor]="userMenu" aria-label="more">
+                        <mat-icon>more_vert</mat-icon>
+                      </button>
+                    <mat-menu #userMenu="matMenu">
+
+                        <button mat-menu-item (click)="addNewTypologyChild(parentTypologyToShow)">
+                            Nuevo subcatalogo
+                        </button>
+                    </mat-menu>
+                </div>
+            </div>
+            <!-- / SEARCH -->
+
+        </div>
+        <!-- / HEADER -->
+        <!-- CONTENT CARD -->
+        <div class="content-card">
+
+            <div>
+
+                <mat-table class="products-table" #table [dataSource]="dataSource" matSort [@animateStagger]="{value:'50'}" fusePerfectScrollbar>
+
+                    <!-- ID Column -->
+                    <ng-container matColumnDef="Id">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>Id</mat-header-cell>
+                        <mat-cell *matCellDef="let typologyChild">
+                            <p class="text-truncate">{{typologyChild.typologyId}}</p>
+                        </mat-cell>
+                    </ng-container>
+
+
+
+                    <!-- Descripcion Column -->
+                    <ng-container matColumnDef="Descripcion">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>Descripcion</mat-header-cell>
+                        <mat-cell *matCellDef="let typologyChild">
+                            <p class="text-truncate">{{typologyChild.description}}</p>
+                        </mat-cell>
+                    </ng-container>
+
+                    <!-- Opciones Column -->
+                    <ng-container matColumnDef="Opciones">
+                        <mat-header-cell *matHeaderCellDef fxHide mat-sort-header fxShow.gt-md>Opciones</mat-header-cell>
+                        <mat-cell *matCellDef="let typologyChild" fxHide fxShow.gt-md>
+                            <button mat-button matTooltip="Ver subcategorias" (click)="getChildsTypology(typologyChild)">
+                                <span class="material-icons">
+                                    list
+                                </span>
+                            </button>
+                            <button mat-button matTooltip="Editar subcategoria" (click)="editTypology(typologyChild, 'edit-typology')">
+                                <span class="material-icons">
+                                    create
+                                    </span>
+                            </button>
+                        </mat-cell>
+                    </ng-container>
+
+                    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                    <mat-row *matRowDef="let procedimiento; columns: displayedColumns;">
+                    </mat-row>
+
+
+                </mat-table>
+
+                <mat-paginator #paginator [length]="dataSource.filteredData.length" [pageIndex]="0" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]">
+                </mat-paginator>
+
+            </div>
+
+
+        </div>
+        <!-- / CONTENT CARD -->
+    </div>
+    <!-- / CENTER -->
+</div>

@@ -1,0 +1,152 @@
+<mat-card class="full-width" [ngStyle]="{'background': this.color}">
+    <mat-card-content>
+        <ng-container *ngIf="this.global_search_type == 'associate'">  
+          <tbody class="full-width">
+            <tr> 
+                <td rowspan="5">
+                  <mat-icon class="avatar">perm_identity</mat-icon>
+                </td>
+                <td>Nombre:</td>
+                <td>{{record.person |  fullNamePipe}}</td>
+            </tr>
+            <tr>
+                <td>DPI:</td>
+                <td>{{record.person.cui}}</td>
+            </tr>
+        
+            <tr>
+                <td>Nit:</td>
+                <td>{{record.person.nit}}</td>
+            </tr>
+            <tr>
+                <td>Fecha de Ingreso:</td>
+                <td>{{record.person.dateCreated | date: 'mediumDate'}}</td>
+            </tr>
+            <tr>
+                <td>No de Socio:</td>
+                <td>{{record.person.membershipNumber}}</td>
+            </tr>
+          </tbody>
+        </ng-container>
+
+        <ng-container *ngIf="this.global_search_type == 'account'">  
+          <tbody class="full-width">
+            <tr> 
+                <td rowspan="4">
+                  <mat-icon class="avatar">credit_card</mat-icon>
+                </td>
+                <td>Tipo:</td>
+                <td>{{ record.account.personAccount.accountType.description |  lowercase}}   -  MONEDA:  GTQ</td>
+            </tr>
+            <tr>
+                <td>No:</td>
+                <td>{{record.account.personAccount.numAccount}}</td>
+            </tr>
+            <tr>
+                <td>Asociado:</td>
+                <td> {{record.account.personAccount.organizationResponsible.person | fullNamePipe}}</td>
+            </tr>
+            <tr>
+              <td><span [ngStyle]="{'color': this.color}">  </span></td>
+              <td> Saldo Disponible | <strong>{{ record.account.balance | currency : 'GTQ' : 'symbol'}}</strong> </td>
+            </tr>
+          </tbody>
+        </ng-container>
+
+
+        <ng-container *ngIf="this.global_search_type == 'credit'">  
+          
+            <div fxLayout="row"> 
+              <div fxFlex="70" fxLayoutAlign="end end">
+                Estado:
+              </div>
+              <div fxFlex="30" class="pl-12">
+                {{record.credit.statusOperated.description  | uppercase }} 
+              </div>
+            </div>
+          <tbody class="full-width">
+            <tr> 
+                <td rowspan="5">
+                  <mat-icon class="avatar">credit_card</mat-icon>
+                </td>
+                <td>Tipo:</td>
+                <td class="pl-10">CRÉDITO</td>
+            </tr>
+            <tr>
+                <td>No:</td>
+                <td class="pl-10">{{record.credit.internalCode}}</td>
+            </tr>
+            <tr>
+                <td>Asociado:</td>
+                <td class="pl-10">{{record.credit.calculator.person | fullNamePipe}}</td>
+            </tr>
+
+            <tr>
+              <td>Monto de Crédito:</td>
+              <td class="pl-10"> <b>{{record.credit.calculator.credit | currency : 'GTQ' : 'symbol' }}</b></td>
+          </tr>
+
+          <tr>
+            <td>No de Cuotas:</td>
+            <td class="pl-10"> <b>{{record.credit.calculator.noPayments }}</b></td>
+          </tr>
+  
+          </tbody>
+
+          <table style="width: 100%;" class="pl-20">
+            <tr>
+              <td> FECHA MAXIMA DE PAGO  <br>  {{record.credit.maxPaymentDate  | date : 'mediumDate'}}</td>
+              <td> SALDO PENDIENTE <br>  {{record.credit.pendingBalance   | currency : 'GTQ' : 'symbol'}}</td>
+              <td> SALDO TOTAL <br>  {{record.credit.totalBalance   | currency : 'GTQ' : 'symbol'}}</td>
+            </tr>
+          </table>
+        </ng-container>
+    </mat-card-content>
+
+
+    <mat-card-actions>
+
+      <ng-container *ngIf="this.global_search_type == 'associate'">
+        <button mat-button class="primary" (click)="go_to_perfil(record.person.personKey)">Ver Perfil</button>
+        <button mat-button class="orange" (click)="go_to_accounts(record.person.personKey)">Detalle de Cuentas</button>
+      </ng-container>
+
+
+      <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+
+        <ng-container *ngIf="this.global_search_type=='associate'">
+          <button mat-menu-item *ngFor="let option of personMenuOptions" (click)="go_to_url( option ,record)">
+            <span>{{option.title}}</span>
+          </button>
+        </ng-container>
+
+        <ng-container *ngIf="this.global_search_type == 'account'">
+          <button mat-menu-item *ngFor="let option of accountMenuOptions" (click)="go_to_url( option , record)">
+            <span>{{option.title}}</span>
+          </button>
+        </ng-container>
+
+        <ng-container *ngIf="this.global_search_type == 'credit'">
+          <button mat-menu-item (click)="go_to_credit_details(record)">
+            <span>Ver detalles de crédito</span>
+          </button>
+        </ng-container>
+        
+
+
+        
+
+      </mat-menu>
+      
+    </mat-card-actions>
+</mat-card>
+<mat-divider class="mt-20"></mat-divider>
+
+
+
+
+
+

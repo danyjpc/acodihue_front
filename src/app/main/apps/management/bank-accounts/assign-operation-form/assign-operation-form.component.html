@@ -1,0 +1,28 @@
+<div fxFlex="100" fxLayout="column">
+    <h2><b>{{this.accountType.description}}</b></h2>
+    <h3>Seleccione las operaciones {{this.message}} para esta cuenta</h3>
+    <mat-card>
+        <ng-container *ngFor="let list of this.allShow; let showIndex= index">
+            <div fxLayout="row">
+                <div fxFlex="70">
+                    {{list.description}}
+                </div>
+                <div fxFlex="30" fxFlexAlign="start start ">
+                    No
+                    <mat-slide-toggle 
+                        [(ngModel)]="allShow[showIndex].assigned" 
+                        [name]="'operacion-'+ showIndex  "  
+                        [id]="'operacion-'+ showIndex " >                       
+                    </mat-slide-toggle>
+                    SI
+                </div>
+            </div>
+        </ng-container>
+    </mat-card>
+    <br>
+    <div mat-dialog-actions fxLayoutAlign="end center">
+        <button mat-raised-button (click)="this.matDialogRef.close()" class="warn">Cancelar</button>
+        <button mat-raised-button class="primary" (click)="guardar()">Guardar</button>
+    </div>
+    <br>
+</div>

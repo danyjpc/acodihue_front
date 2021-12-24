@@ -1,0 +1,63 @@
+# dental WEB - Angular
+
+Material Design Admin Template with Angular 8 and Angular Material
+
+## The Community
+
+Share your ideas, discuss Fuse and help each other.
+
+[Click here](http://fusetheme.com/community) to see our Community page.
+
+## Development server
+
+Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+
+## Code scaffolding
+
+Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+
+## Build
+
+Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+
+## Running unit tests
+
+Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+
+## Running end-to-end tests
+
+Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+
+## Further help
+
+To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+
+
+## RUN DOCKER 
+
+This project depends of dental-core api.    you need run dental-core api,  this proyect can be found in bitbucket repo.
+
+for branch develop and master this project atumatically build a docker image an put it inside our private registry hub.mypeopleapps.com
+Docker image : hub.mypeopleapps.com/dental-web:${mode} , mode can be set beta or latest.
+To run this project for production or beta server run this app inside docker image, we don need clone repo in servers productions. use this template yml for running this app
+
+```yaml
+version: '3'
+services:
+  dental-core:
+    image: hub.mypeopleapps.com/dental-core:${beta}
+    container_name: dental-core-${beta}
+    restart: always
+    env_file:
+      - ./server-variables.env  # use this file to set all enivornments need
+    ports:
+      - "7000:80"
+      - "8000:443"
+
+  dental-webapp:
+    image: hub.mypeopleapps.com/dental-webapp:${beta}
+    container_name: dental-webapp-${beta}
+    restart: always
+    ports:
+      - "4200:80"
+```

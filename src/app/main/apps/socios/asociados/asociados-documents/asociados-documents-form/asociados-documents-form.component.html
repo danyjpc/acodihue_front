@@ -1,0 +1,33 @@
+
+    <form mat-dialog-content class="p-24 pb-0 m-0" fxLayout="column" fxFlex="1 0 auto" #documentForm="ngForm" >
+        <h3>Subir Nuevo Escaner de Documento</h3>
+        
+        <mat-form-field appearance="outline" class="mat-form-field" fxFlex="100">
+            <input hidden type="file" accept=".pdf, .jpg, .png" (change)="onFileChange($event.target.files)" #fileInput/>
+            <input class="input" type="text" name="nombre_archivo" (click)="fileInput.click()" placeholder="Haga clic para seleccionar el archivo..." aria-label="Number" matInput [formControl]="nombreArchivo">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" fxFlex="50" class="pl-4"> 
+            <mat-label>Tipo de documetno</mat-label>
+            <mat-select  required [(ngModel)]="this.params.type" name="type" id ="type" >
+                <mat-option *ngFor="let documentTypes of documentTypesTypologies.childTypologies" [value]="documentTypes.typologyId" >
+                    {{documentTypes.description}}
+                </mat-option>
+            </mat-select>
+            <mat-icon matSuffix class="secondary-text">wc</mat-icon>
+            <mat-error>Seleccione Tipo de Documento!</mat-error>
+        </mat-form-field>
+
+        <div mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center">
+            <button mat-flat-button color="primary" [disabled]="nombreArchivo.invalid"  (click)="uploadFile()" class="primary" type="submit" aria-label="ADD">
+               <mat-icon>cloud_upload</mat-icon> Subir
+            </button>
+
+            <button  (click)="this.matDialogRef.close()" mat-flat-button color="warn"  aria-label="SAVE">
+                Cancelar 
+            </button>
+
+        </div>
+    </form>
+
+

@@ -1,0 +1,66 @@
+
+    <form mat-dialog-content class="p-24 pb-0 m-0" fxLayout="column" fxFlex="1 0 auto" #addressForm="ngForm" >
+        <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
+            <mat-form-field appearance="outline" fxFlex="100">
+                <mat-label>Número de Telefono</mat-label>
+                <input matInput [(ngModel)]="this.phone.phone" name="phone" id="phone" required>
+                <mat-icon matSuffix class="secondary-text">phone</mat-icon>
+                <mat-error>el campo de télefono es requerido!</mat-error>
+            </mat-form-field>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="start start" fxFlex="1 0 auto">
+            <mat-form-field appearance="outline" fxFlex="100" >                
+                <mat-label>Tipo de Contacto</mat-label>
+                <mat-select  required [(ngModel)]="this.phone.type.typologyId" name="type" id ="type">
+                    <mat-option *ngFor="let type of phonesTypesTypology.childTypologies" [value]="type.typologyId" >
+                        {{type.description}}
+                    </mat-option>
+                </mat-select>
+                <mat-icon matSuffix class="secondary-text">location_on</mat-icon>
+                <mat-error>Seleccione  Tipo de télefono!</mat-error>
+            </mat-form-field>
+    
+        </div>
+        <div fxLayout="row" fxLayoutAlign="start start" fxFlex="1 0 auto">
+            
+            <mat-slide-toggle [(ngModel)]="this.phone.leader" name="leader" id="leader"> Establecer como principal</mat-slide-toggle>
+        </div>
+        
+
+
+
+        <div mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center">
+
+            <button mat-button color="primary"
+                class="mr-8"
+                (click)="matDialogRef.close()"
+                aria-label="Delete"
+                matTooltip="Delete">
+                Cancelar
+            </button>
+            <button *ngIf="action !== 'edit'"
+                    mat-button
+                    color="primary"
+                    class="save-button"
+                    (click)="closeDigalog()"
+                    [disabled]="addressForm.invalid"
+                    aria-label="SAVE">
+                Guardar
+            </button>
+    
+            <button *ngIf="action === 'edit'"
+                    mat-button
+                    color="primary"
+                    class="save-button"
+                    (click)="closeDigalog()"
+                    [disabled]="addressForm.invalid"
+                    aria-label="SAVE">
+                Actualizar
+            </button>
+
+        </div>
+
+        
+    </form>
+
+

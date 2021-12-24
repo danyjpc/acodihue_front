@@ -1,0 +1,102 @@
+
+<form class="mat-card  p-24 " fxLayout="column" fxLayoutAlign="start" fxFlex="1 0 auto" name="form" #asociacionesForm="ngForm">
+    <div class="h2 mb-24">{{this.dialogTitle}}</div>
+    <hr>
+
+    <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
+        <mat-form-field appearance="outline" fxFlex="100" class="">
+            <mat-label>Nombre de la Agencia</mat-label>
+            <input matInput  required  [(ngModel)]="agencia.organizationName" name="organizationName" id="organizationName"> 
+            <mat-icon matSuffix class="secondary-text">location_city</mat-icon>
+            <mat-error>Nombre de la Agencia!</mat-error>
+        </mat-form-field>
+        <!-- <mat-form-field appearance="outline" fxFlex="50" class="pl-4">
+            <mat-label>Contacto Principal de la Asociación</mat-label>
+            <input matInput  required  [(ngModel)]="asociacion.contact.nameComplete" name="nameComplete" id="nameComplete"> 
+            <mat-icon matSuffix class="secondary-text">account_circle</mat-icon>
+            <mat-error>Last Name is required!</mat-error>
+        </mat-form-field> -->
+    </div>
+
+    <div fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="1 0 auto">
+        <mat-form-field appearance="outline" fxFlex="50" class="pr-4">
+            <mat-label>Departamento</mat-label>
+            <mat-select [(ngModel)]="agencia.agencyAddress.state.typologyId" name="departamento" id="departamento" required (selectionChange)="loadNewMunicipios($event)"> 
+                <mat-option  *ngFor="let departamento of departamentosTypologies.childTypologies" [value]="departamento.typologyId">
+                    {{departamento.description}}
+                </mat-option>
+            </mat-select>
+            <mat-icon matSuffix class="secondary-text">outlined_flag</mat-icon>
+            <mat-error>Country is required!</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" fxFlex="50" class="pl-4">
+            <mat-label>Municipio</mat-label>
+            <mat-select name="municipio" id="municipio" [(ngModel)]="agencia.agencyAddress.city.typologyId"  required>
+                <mat-option *ngFor="let municipio of municipiosTypologies.childTypologies" [value]="municipio.typologyId">
+                    {{municipio.description}}
+                </mat-option>
+            </mat-select>
+            <mat-icon matSuffix class="secondary-text">outlined_flag</mat-icon>
+            <mat-error>Municipio es requerido!</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" fxFlex="100">
+            <mat-label>Address</mat-label>
+            <textarea matInput [(ngModel)]="agencia.agencyAddress.addressLine" name="address" id="address" required></textarea>
+            <mat-error>el campo de dirección es requerido!</mat-error>
+        </mat-form-field>
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
+        <mat-form-field appearance="outline" fxFlex="50" class="pr-4">
+            <mat-label>Cuota de Ingreso Nuevos Socios</mat-label>
+            <input matInput  type="number" [(ngModel)]="agencia.entryFee" name="entryFee" id="entryFee"  required>
+            <mat-icon matSuffix class="secondary-text">trending_up</mat-icon>
+            <mat-error>Cuota de Ingreso es requerido!</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" fxFlex="50" class="pl-4">
+            <mat-label>Valor de la Aportación Inicial Nuevos Socios</mat-label>
+            <input matInput  type="number" [(ngModel)]="agencia.entryContribution" name="entryContribution" id="entryContribution"  required>
+            <mat-icon matSuffix class="secondary-text">trending_up</mat-icon>
+            <mat-error>Aportación Inicial es Requerida</mat-error>
+        </mat-form-field>
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
+        
+        <button *ngIf="this.action === 'new'"
+            (click)="saveForm()"
+            [disabled]="asociacionesForm.invalid" 
+            class="mr-8" 
+            mat-raised-button 
+            color="primary">
+            Guardar
+        </button>
+
+        <button 
+            *ngIf="this.action === 'edit'"
+            (click)="saveForm()"
+            [disabled]="asociacionesForm.invalid" 
+            class="mr-8" 
+            mat-raised-button 
+            color="primary">
+            Actualizar Datos
+        </button>
+
+
+        <button 
+            (click)="matDialogRef.close()"
+            class="mr-8" 
+            mat-raised-button 
+            color="primary">
+            Cancelar
+        </button>
+
+    </div>
+
+</form>
+
+
+

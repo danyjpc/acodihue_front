@@ -1,0 +1,104 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar class="brown-300 m-0">
+        <mat-toolbar-row fxFlex fxLayout="row" fxLayoutAlign="space-between center">
+            <span class="title dialog-title">Nuevo Usuario</span>
+            <button mat-icon-button (click)="matDialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+
+    <div mat-dialog-content class="p-4">
+
+        <form class="" #userForm="ngForm" fxLayout="column" fxLayoutAlign="start" fxFlex="1 0 auto" name="form" >
+
+            <mat-form-field appearance="outline" fxFlex="100" class="inputs">
+                <mat-label>Nombres</mat-label>
+                <input matInput  required [(ngModel)]="user.person.firstName" name="firstName" id="firstName"> 
+                <mat-icon matSuffix class="secondary-text">account_circle</mat-icon>
+                <mat-error>Nombre requerido!</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" fxFlex="100" class="inputs">
+                <mat-label>Apellidos</mat-label>
+                <input matInput  required [(ngModel)]="user.person.lastName" name="lastName" id="lastName" >
+                <mat-icon matSuffix class="secondary-text">account_circle</mat-icon>
+                <mat-error>Se requiere almenos un apellido!</mat-error>
+            </mat-form-field>
+
+            <mat-form-field  class="email" appearance="outline" fxFlex="100">
+                <mat-label>Correo electronico</mat-label>
+                <input [disabled]="this.action ==='edit'" matInput   type="email" [(ngModel)]="user.person.email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" name="email" id="email" requierd> 
+                <mat-icon matSuffix class="secondary-text">email</mat-icon>
+            </mat-form-field>
+            
+            <mat-form-field *ngIf="this.action==='new'" appearance="outline" fxFlex="50" class="inputs pr-4">
+                <mat-label>Contraseña</mat-label>
+                <input matInput type="password" required [(ngModel)]="user.password" name="password" id="password">
+                <mat-icon matSuffix class="secondary-text">vpn_key</mat-icon>
+                <mat-error>Contraseña requerida!</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="selects" fxFlex="50" class="pr-4">
+                <mat-label>Rol</mat-label>
+                <mat-select  required [(ngModel)]="user.role.typologyId" name="rol" id="rol">
+                    <mat-option [value]="''">
+                        Seleccione el Rol
+                    </mat-option>
+                    <mat-option [value]="rol.typologyId" *ngFor="let rol of rolesTypology.childTypologies">
+                        {{rol.description}}
+                    </mat-option>
+                </mat-select>
+                <mat-icon matSuffix class="secondary-text">supervised_user_circle</mat-icon>
+                <mat-error>El rol del usuario es requerido!</mat-error>
+            </mat-form-field>
+
+
+            <!-- <div class="inputs pl-4">
+                <mat-checkbox formControName="resetPassword">Reiniciar Contraseña</mat-checkbox>
+            </div>
+         -->
+            <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
+<!-- 
+                <mat-form-field appearance="outline" fxFlex="50" class="inputs pr-4">
+                    <mat-label>DPI</mat-label>
+                    <input matInput type="number" formControlName="dpi" required [(ngModel)]="user.person.cui">
+                    <mat-icon matSuffix class="secondary-text">perm_identity</mat-icon>
+                    <mat-error>Numero de DPI requerido!</mat-error>
+                </mat-form-field> -->
+<!-- 
+                <mat-form-field appearance="outline" fxFlex="50" class="inputs pl-4">
+                    <mat-label>Fecha de Nacimiento</mat-label>
+                    <input matInput formControlName="fechaNacimiento" required [matDatepicker]="datepicker" [(ngModel)]="user.person.birthday">
+                    <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
+                    <mat-datepicker #datepicker disabled="false"></mat-datepicker>
+                    <mat-error>Fecha de nacimimento requerido!</mat-error>
+                </mat-form-field> -->
+
+            </div>
+
+            <div mat-dialog-actions class="m-10" fxLayout="row" fxLayoutAlign="end center">
+                <button  
+                    *ngIf="this.action === 'new'" 
+                    mat-button color="primary" 
+                    [disabled]="userForm.invalid" 
+                    class="save-button brown-300 mr-10" 
+                    aria-label="SAVE" (click)="saveUser()">
+                    Guardar
+                </button>
+
+                <button 
+                    *ngIf="this.action === 'edit'"
+                     mat-button color="primary" 
+                     class="save-button brown-300 mr-10" 
+                     aria-label="SAVE" (click)="saveUser()">
+                    Actualizar Datos
+                </button>
+
+                <button mat-button color="warn"  class="save-button red-500" style="margin-left: 10px;" aria-label="SAVE" (click)="matDialogRef.close()">
+                    Cancelar
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,21 @@
+<!-- SIDEBAR CONTENT -->
+<div class="content" fusePerfectScrollbar [@animate]="{value:'*',params:{y:'50px'}}">
+
+    <div class="nav material2">
+
+        <div class="nav-subheader">Categorías</div>
+
+        <div class="nav-item" *ngFor="let item of ProfileSidebarMenu">
+            <a class="nav-link" matRipple [routerLink]="baseRoutePath + item.handle" [routerLinkActive]="['active', 'primary-300']">
+                <mat-icon class="nav-link-icon" *ngIf="item.icon">{{item.icon}}</mat-icon>
+                <span>{{item.title}}</span>
+               
+            </a>
+            <mat-divider> </mat-divider>
+        </div>
+
+
+    </div>
+
+</div>
+<!-- / SIDEBAR CONTENT -->

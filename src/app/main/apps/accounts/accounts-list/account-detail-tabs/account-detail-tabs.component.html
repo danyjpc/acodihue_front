@@ -1,0 +1,37 @@
+
+    <ng-container *ngIf="accountId > 0; then accountDetails; else AlertText"></ng-container>
+
+
+    <ng-template #AlertText>
+        <div class="center" style="text-align: center;">
+            <h2>Seleccione una Cuenta para obtener Detalles de Movimientos</h2>
+        </div>
+    </ng-template>
+    
+
+  <ng-template #accountDetails>
+    <mat-toolbar>
+        <span> {{account.numAccount}} </span>
+        <span class="example-spacer"></span>
+        <app-account-operations-menu   [accountId]="accountId" [typeAccountId]="this.account.accountType.typologyId"></app-account-operations-menu>
+    </mat-toolbar>
+
+    <mat-tab-group class="" mat-align-tabs="center" [selectedIndex]="1">
+        <mat-tab label="Saldos y Detalles">
+            <app-account-detail></app-account-detail>
+        </mat-tab>
+        <mat-tab label="Movimientos del Mes">
+            <app-account-balance [currentMont]="true"></app-account-balance>
+        </mat-tab>
+        <mat-tab label="Estado de Cuenta" >
+            <app-account-balance [currentMont]="false"></app-account-balance>
+        </mat-tab>
+        <mat-tab label="Libretas">
+            <app-account-notebooks></app-account-notebooks>
+        </mat-tab>
+      </mat-tab-group>
+      
+  </ng-template>
+  
+
+  

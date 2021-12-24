@@ -1,0 +1,69 @@
+
+
+<form class="mat-card  p-24 " fxLayout="column" fxLayoutAlign="start" fxFlex="1 0 auto" name="form" #transactionForm="ngForm">
+    <div class="">
+        <span>{{operation.operationType | uppercase}}</span>
+        <h5>Operar Nueva Transacción  a la cuenta no: {{acountID}} </h5>
+    </div>
+    <hr>
+
+    <mat-form-field appearance="outline" fxFlex="100" class="pr-4">
+        <mat-label>Tipo de Operación</mat-label>
+        <mat-select [(ngModel)]="transactionModel.transactionType.typologyId" name="transactionType" id="transactionType" required> 
+            <mat-option  *ngFor="let type of operationsOptions" [value]="type.typologyId">
+                {{type.description}}
+            </mat-option>
+        </mat-select>
+        <mat-icon matSuffix class="secondary-text">outlined_flag</mat-icon>
+        <mat-error>tipo de Operación required!</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" fxFlex="50" class="">
+        <mat-label>Monto:</mat-label>
+        <input matInput  type="number" [(ngModel)]="transactionModel.amount" name="amount" id="amount"  required>
+        <mat-icon *ngIf="this.operation.typologyParent == env.DEFAULT_OPERATIONS_TYPOLOGY_HABER" matSuffix class="secondary-text">trending_up</mat-icon>
+        <mat-icon *ngIf="this.operation.typologyParent == env.DEFAULT_OPERATIONS_TYPOLOGY_DEBE" matSuffix class="secondary-text">trending_down</mat-icon>
+        <mat-error>Ingrese Monto</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" fxFlex="50" class="">
+        <mat-label>Anotación:</mat-label>
+        <input matInput  type="text" [(ngModel)]="transactionModel.annotation" name="annotation" id="annotation" >
+        <mat-icon matSuffix class="secondary-text">text</mat-icon>
+        <mat-error>Anotación</mat-error>
+    </mat-form-field>
+
+
+
+
+
+
+
+
+
+    <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
+        
+        <button 
+            (click)="saveForm()"
+            [disabled]="transactionForm.invalid" 
+            class="mr-8" 
+            mat-raised-button 
+            color="primary">
+            Operar
+        </button>
+
+   
+
+
+        <button 
+            (click)="dialogRef.close()"
+            class="mr-8" 
+            mat-raised-button 
+            color="primary">
+            Cancelar
+        </button>
+
+    </div>
+
+</form>
+

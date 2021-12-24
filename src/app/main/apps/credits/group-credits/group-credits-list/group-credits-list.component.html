@@ -1,0 +1,48 @@
+
+<mat-form-field  fxFlex=100 appearance="outline" class="my-8"> 
+    <mat-label>Buscar crédito</mat-label>
+    <input matInput  placeholder="Ex. Mia" #input>
+</mat-form-field>
+
+<mat-card>
+    <div fxLayout="row wrap" fxLayout.xs="column" fxFlex="100">
+        <div  fxFlex="15" fxFlex.xs="100" fxFlex.sm="20" fxLayout="column" fxLayoutAlign="center center" fxFlexFill>
+            <div class="round" fxLayout="column" fxLayoutAlign="center center">
+                <p class="round-text" fxLayoutAlign="center center">LA</p>
+            </div> 
+        </div>
+        <div fxFlex="55"  fxFlex.xs="100" fxFlex.sm="75" fxLayout="column" class="pl-20" fxLayoutAlign="start start" >
+            <span class="mat-title"><b>Grupo la Unión </b></span>
+            <span class="mat-body-1"><mat-icon>groups</mat-icon> Número de miembros: 15</span>
+            <span class="mat-body-1"><mat-icon>person</mat-icon> Representante: Juan Lopez</span>
+            <span class="mat-body-1"><mat-icon>payments</mat-icon> Monto de credito: 500000</span>
+            <span class="mat-body-1"><mat-icon>event</mat-icon> Creado: 22/10/2021</span>
+
+        </div>
+        <div fxFlex="30" fxFlex.xs="100" fxFlex.sm="100" fxLayout="column" fxLayoutAlign="space-between end">
+            <div fxLayout="row" fxLayoutAlign="end start" fxLayoutGap="gappx">
+                <div class="label-title"><mat-icon>home</mat-icon> Agencia: Prueba</div>
+                <div class="label-title pl-8"><mat-icon>recent_actors</mat-icon> Id Grupo: 45454445 </div>
+            </div>
+            <div fxLayout="row" fxLayoutAlign="end end">
+                <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+                    <mat-icon>more_vert</mat-icon>
+                  </button>
+                  <mat-menu #menu="matMenu">
+                    <button mat-menu-item>
+                      <span>Ver miembros</span>
+                    </button>
+                    <button mat-menu-item>
+                      <span>Inscribir nuevo socio y asociar a este grupo</span>
+                    </button>
+                    <button mat-menu-item>
+                      <span>Editar datos del grupo</span>
+                    </button>
+                    <button mat-menu-item>
+                        <span>Imprimir solicitudes de credito grupal</span>
+                      </button>
+                </mat-menu>
+            </div>
+        </div>
+    </div>
+</mat-card>

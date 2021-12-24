@@ -1,0 +1,24 @@
+<!-- SIDEBAR CONTENT -->
+<div class="content" fusePerfectScrollbar [@animate]="{value:'*',params:{y:'50px'}}">
+
+    <div class="nav">
+
+        <div class="nav-subheader">Listado de Cuentas</div>
+        <ng-container *ngIf="accounts[0]">
+            <div class="nav-item" *ngFor="let account of accounts">
+                <a class="accounts nav-link" (click)="loadDetails(account)" matRipple [routerLink]="baseRoutePath + account.personAccount.account_id" [routerLinkActive]="['active' , 'color-active']">
+                    <app-accounts-single-widget 
+                        style="width: 100%;"
+                        [account]="account"  
+                        [links]="true">
+                    </app-accounts-single-widget>
+                </a>
+                <mat-divider style="margin-top: 10px !important; margin-bottom: 10px !important;"> </mat-divider>
+            </div>
+        </ng-container>
+
+
+    </div>
+
+</div>
+<!-- / SIDEBAR CONTENT -->

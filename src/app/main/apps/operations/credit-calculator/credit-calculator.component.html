@@ -1,0 +1,188 @@
+<div class="page-layout simple">
+
+    <!-- HEADER -->
+    <div class="header brown-300 p-24" fxLayout="row" fxLayoutAlign="start center">
+        <div>
+            <button mat-icon-button (click)="go_back()">
+                <mat-icon>arrow_back</mat-icon>
+            </button> 
+            <span>Calculadora de Créditos</span>
+            
+        </div>
+
+    </div>
+    <!-- / HEADER -->
+
+    <!-- CONTENT -->
+    <div class="content">
+        <!-- CENTER -->
+        <div class="center p-24">
+            <!-- CONTENT -->
+            <div class="content p-24  mat-card card">
+
+                <div fxLayout="column" fxFlex="100">
+
+                    <form class="" fxLayout="column" fxLayoutAlign="start"fxFlex="1 0 auto"   #creditDetailsForm="ngForm">
+                        <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto" >
+                            <mat-form-field  appearance="outline" fxFlex="50" class="pr-4">
+                                <mat-label>Nombre del Solicitante</mat-label>
+                                <input [disabled]="disabledInputs" matInput  required [(ngModel)]="calculatorParams.person.firstName"   name="solicitante" id="solicitante" >
+                                <mat-icon matSuffix class="secondary-text">account_circle</mat-icon>
+                                <mat-error>Primer Nombre es requerido!</mat-error>
+                            </mat-form-field>
+                            <mat-form-field appearance="outline" fxFlex="50" class="pl-4">
+                                <mat-label>Destino del Crédito</mat-label>
+                                <mat-select  required  name="creditLineId" id ="creditLineId" [(ngModel)]="calculatorParams.creditLine.creditLineId" >
+                                    <mat-option *ngFor="let line of creditLines" [value]="line.creditLineId" >
+                                        {{line.description}} 
+                                    </mat-option>
+                                </mat-select>
+                                <mat-icon matSuffix class="secondary-text">wc</mat-icon>
+                                <mat-error>Seleccione Línea de Crédito!</mat-error>
+                            </mat-form-field>
+                        </div>
+
+                        <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto" >
+                            <mat-form-field appearance="outline" fxFlex="50" class="pr-4">
+                                <mat-label>Dirección</mat-label>
+                                <input matInput   name="direccion" id="direccion"  value="Ciudad">
+                                <mat-icon matSuffix class="secondary-text">account_circle</mat-icon>
+                            </mat-form-field>
+                            <mat-form-field appearance="outline" fxFlex="50" class="pl-4">
+                                <mat-label>Fecha Solicitud</mat-label>
+                                <input [disabled]="true" matInput [matDatepicker]="picker" [(ngModel)]="calculatorParams.applicationDate"  name="date" id="date">
+                                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                <mat-datepicker #picker></mat-datepicker>
+                            </mat-form-field>
+                        </div>
+
+                        <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto" >
+                            <div appearance="outline" fxLayout="row" fxFlex="50" class="pr-4">
+
+                                <mat-form-field appearance="outline" fxFlex="30">
+                                    <mat-label>Plazo (Años)</mat-label>
+                                    <input  matInput type="number"  (change)="calculateCuotes()"  required [(ngModel)]="calculatorParams.noPeriod"  name="noPeriod" id="noPeriod" >
+                                    
+                                </mat-form-field>
+                                <mat-form-field appearance="outline" fxFlex="30" class="pr-8 pl-8">
+                                    <mat-label>Cuotas</mat-label>
+                                    <input type="number" matInput required [(ngModel)]="calculatorParams.noPayments" name="noPayments" id="noPayments" >
+                                    
+                                </mat-form-field>
+
+                                <mat-form-field appearance="outline" fxFlex="40" >
+                                    <mat-label>Monto Solicitado</mat-label>
+                                    <input matInput type="number" required [(ngModel)]="calculatorParams.credit"  name="credit" id="credit" >
+                                    
+                                </mat-form-field>
+
+                            </div>
+                            <div appearance="outline" fxLayout="row" fxFlex="50" class="pl-4">
+                                <mat-form-field appearance="outline" fxFlex="50">
+                                    <mat-label>% Interés</mat-label>
+                                    <input [disabled]="disabledInputs" matInput type="number" required  [(ngModel)]="calculatorParams.interestRate" name="plazo" id="plazo" >
+                                    
+                                </mat-form-field>
+                                <mat-form-field appearance="outline" fxFlex="50" class="pl-4">
+                                    <mat-label>% Interés F</mat-label>
+                                    <input [disabled]="true" type="number" matInput [(ngModel)]="this.calculatorParams.interestFinal"  name="interesF" id="interesF" >
+                                    
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div fxLayout="row" fxLayoutAlign="end end" fxFlex="1 0 auto" >
+                            <button class="m-4" [disabled]="!creditDetailsForm.valid" (click)="calculateAmortizationsTable()" mat-raised-button color="accent"> <mat-icon>ballot</mat-icon> Calcular</button>
+                            <button class="m-4" *ngIf="this.calculatorId == 0 && this.personKey" [disabled]="AmortizationDetails.length === 0 && this.calculatorId === 0" (click)="calculateAmortizationsTable(true)" mat-raised-button color="accent"> <mat-icon>save</mat-icon> Guardar Cotización</button>
+                            <button class="m-4" *ngIf="this.calculatorId> 0"  (click)="updateCotization()" mat-raised-button color="accent"> <mat-icon>save</mat-icon> Actualizar Cotización</button>
+                        </div>
+                        
+                    </form>
+                    
+                    <div class="m-8">
+                        <mat-divider></mat-divider>
+                    </div>
+
+
+                    <div fxLayout="row" fxLayoutAlign="start start" fxFlex="1 0 auto"  >
+                        <div fxLayout="row"  fxFlex="90" class="card-content pl-16" style="background: greenyellow;" >
+                            <div  *ngIf="this.calculatorId> 0" class="p-12">
+                                <span>Iniciar Expediente a partir de esta cotización </span> &nbsp; &nbsp; 
+                                <button mat-button class="primary"  (click)="createCredit()"> Crear </button>
+                            </div>
+                            
+                        </div>
+                        <div fxFlex="10" fxLayoutAlign="end start">
+                            <div class="p-12">
+                                <button (click)="printAmortization()"  *ngIf="AmortizationDetails[0]" mat-icon-button>
+                                    <mat-icon>print</mat-icon>
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+           
+                    <table mat-table [dataSource]="AmortizationDetails" class="mat-elevation-z8 mt-12">
+
+                        <!--- Note that these columns can be defined in any order.
+                            The actual rendered columns are set as a property on the row definition" -->
+                    
+                        <!-- Position Column -->
+                        <ng-container matColumnDef="no">
+                        <th mat-header-cell *matHeaderCellDef> No. </th>
+                        <td mat-cell *matCellDef="let detail"> {{detail.noPago}} </td>
+                        </ng-container>
+                    
+                        <!-- Name Column -->
+                        <ng-container matColumnDef="date">
+                        <th mat-header-cell *matHeaderCellDef> Fecha de Pago </th>
+                        <td mat-cell *matCellDef="let detail"> {{detail.fecha}} </td>
+                        </ng-container>
+                    
+                        <!-- Weight Column -->
+                        <ng-container matColumnDef="pago">
+                        <th mat-header-cell *matHeaderCellDef> Pago </th>
+                        <td mat-cell *matCellDef="let detail"> {{detail.pago | currency : 'GTQ' : 'symbol'}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="capital">
+                            <th mat-header-cell *matHeaderCellDef> Capital </th>
+                            <td mat-cell *matCellDef="let detail"> {{detail.capital | currency : 'GTQ' : 'symbol'}} </td>
+                        </ng-container>
+                    
+                        <!-- Symbol Column -->
+                        <ng-container matColumnDef="pagocapital">
+                        <th mat-header-cell *matHeaderCellDef> Capital Pagado </th>
+                        <td mat-cell *matCellDef="let detail"> {{detail.capitalPagado | currency : 'GTQ' : 'symbol'}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="rate">
+                            <th mat-header-cell *matHeaderCellDef> Interés </th>
+                            <td mat-cell *matCellDef="let detail">  {{detail.interes | currency : 'GTQ' : 'symbol'}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="rate_buy">
+                            <th mat-header-cell *matHeaderCellDef> Interés Pagado</th>
+                            <td mat-cell *matCellDef="let detail">  {{detail.interesPagado | currency : 'GTQ' : 'symbol'}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="saldo">
+                            <th mat-header-cell *matHeaderCellDef> Saldo</th>
+                            <td mat-cell *matCellDef="let detail"> {{detail.saldo | currency : 'GTQ' : 'symbol'}}</td>
+                        </ng-container>
+                    
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                    </table>
+                    
+                </div>
+                  
+            </div>
+            <!-- / CONTENT -->
+        </div>
+        <!-- / CENTER -->
+
+    </div>
+    <!-- / CONTENT -->
+
+</div>

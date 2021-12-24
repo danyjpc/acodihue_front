@@ -1,0 +1,45 @@
+<div class="page-layout simple right-sidebar inner-sidebar">
+
+
+    <!-- CONTENT -->
+    <div class="content">
+
+        <!-- SIDEBAR -->
+        <fuse-sidebar class="sidebar" name="simple-right-sidebar-3" position="left" lockedOpen="gt-md">
+
+            <!-- SIDEBAR CONTENT -->
+            <div class="content p-24" fusePerfectScrollbar>
+                <mat-card>
+                    <mat-card-content>
+                        Numero de Coincidencias
+                        <mat-divider class="mb-12"></mat-divider> 
+                        <h1 *ngIf="this.searchData">{{this.searchData.records.length}}</h1>
+                        
+                    </mat-card-content>
+                </mat-card>
+            </div>
+            <!-- / SIDEBAR CONTENT -->
+
+        </fuse-sidebar>
+        <!-- / SIDEBAR -->
+
+        <!-- CENTER -->
+        <div class="center pl-24 pr-24 pb-24" fusePerfectScrollbar>
+
+            <!-- CONTENT -->
+            <div class="p-24" *ngIf="this.searchData">
+                    <span> <strong>Registros Encontrados </strong> </span>
+                    <mat-divider class="mb-16"></mat-divider>
+                    <app-search-person-widget  class="mt-10" *ngFor="let result of this.searchData.records" [record]="result" [global_search_type]="this.searchData.global_search_type"></app-search-person-widget>   
+            </div>
+            <!-- / CONTENT -->
+
+        </div>
+        <!-- / CENTER -->
+
+    </div>
+    <!-- / CONTENT -->
+
+</div>
+
+

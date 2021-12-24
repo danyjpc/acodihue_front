@@ -1,0 +1,32 @@
+table {
+    width: 100%;
+}
+
+.anual{
+    width : 180px;
+    border: 2px solid transparent;
+    border-radius: 6px;
+    background: rgb(234, 234, 234);
+  }
+  
+  .total{
+    border: 1px solid ;
+    height: 42px;
+    border-radius: 6px;
+    background: rgb(234, 234, 234);
+  }
+  .mat-header-cell{
+    background: rgb(234, 234, 234);
+    text-align: center;
+    font-weight: bold !important;
+  }
+  
+  .no-padding{
+    .mat-form-field-wrapper{
+      //margin-bottom: -1.25em;
+      padding-bottom :0px !important;
+    }
+    .mat-form-field-infix {
+      padding: 5px !important;
+    }
+  }

@@ -1,0 +1,46 @@
+<div fxLayout="row" fxLayoutAlign="start start" fxFlex="1 0 auto">
+
+
+        <div fxLayout="column"  class="pr-8 pl-16" fxFlex="65">
+            <a [routerLink]="'/associate/profile/'+person.personKey+'/personal-info' "><span><strong>  {{person.firstName}}, {{person.lastName}}</strong></span></a>
+            <mat-divider></mat-divider>
+            <tbody style="margin-top: 10px; font-size: 15px !important;">  
+                <tr>
+                    <td class="col-30"> <strong>CUI: </strong></td>
+                    <td class="col-70">{{person.cui}}</td>
+                </tr>
+
+                <tr>
+                    <td class="col-30"> <strong>Email: </strong></td>
+                    <td class="col-70">{{person.email}}</td>
+                </tr>
+                <tr>
+                    
+                    <td class="col-30"> <strong>Firma Interna: </strong></td>
+                    <td class="col-70">{{person.personKey}}</td>
+                </tr>
+
+                <tr>
+                    
+                    <td class="col-30"> <strong>Número de socio: </strong></td>
+                    <td class="col-70">{{person.membershipNumber}}</td>
+                </tr>
+            </tbody>
+
+
+        </div>
+
+        <div fxLayout="column"  fxFlex="35" fxLayoutAlign="end center">
+            <tr class="mb-15">
+                <td class="col-100">Fecha de Inscripción:   {{this.person.dateCreated | date : 'mediumDate'}}</td>
+            </tr>
+
+            <button (click)="print_solicitud()" mat-button   matTooltip="Descar Solicitud de Ingreso" aria-label="imprimir">
+                <mat-icon>cloud_download</mat-icon>
+              </button>
+
+        </div>
+
+
+
+</div>

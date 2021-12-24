@@ -1,0 +1,105 @@
+<mat-table class="users-table" #table [dataSource]="Agencias" matSort [@animateStagger]="{value:'50'}" fusePerfectScrollbar>
+
+    <!-- ID Column -->
+    <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Nombre de Agencia</mat-header-cell>
+        <mat-cell *matCellDef="let agencia">
+            <p >{{agencia.organizationName}}</p>
+        </mat-cell>
+    </ng-container>
+
+    <!-- Image Column -->
+
+
+
+
+
+    <ng-container matColumnDef="state_city">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Municipio</mat-header-cell>
+        <mat-cell *matCellDef="let agencia">
+            <span>  
+                <strong>Departamento:</strong>   {{agencia.agencyAddress.state.description}} <br>
+                <strong>Municipio:</strong>      {{agencia.agencyAddress.city.description}} 
+            </span>
+        </mat-cell>
+    </ng-container>
+
+
+
+    <ng-container matColumnDef="address">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Dirección</mat-header-cell>
+        <mat-cell *matCellDef="let agencia">
+            <p >{{agencia.agencyAddress.addressLine}}</p>
+        </mat-cell>
+    </ng-container>
+
+
+        <!-- Category Column -->
+        <ng-container matColumnDef="status">
+            <mat-header-cell *matHeaderCellDef fxHide mat-sort-header fxShow.gt-md>Estado</mat-header-cell>
+            <mat-cell *matCellDef="let agencia" fxHide fxShow.gt-md>
+                <p class="category text-truncate">
+                    <mat-slide-toggle color="primary"
+                        [checked]="agencia.status.typologyId === env.DEFAULT_STATUS_ACTIVE">
+                    </mat-slide-toggle>
+                </p>
+            </mat-cell>
+        </ng-container>
+
+        <!-- Category Column -->
+        <!-- <ng-container matColumnDef="contact">
+            <mat-header-cell *matHeaderCellDef fxHide mat-sort-header fxShow.gt-md>Persona de Contacto</mat-header-cell>
+            <mat-cell *matCellDef="let agencia" fxHide fxShow.gt-md>
+                <p >{{agencia.contact.nameComplete}}</p>
+            </mat-cell>
+        </ng-container> -->
+
+
+        <!-- Name Column -->
+        <!-- <ng-container matColumnDef="interes_rate">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Tasa de Interés Activa</mat-header-cell>
+            <mat-cell *matCellDef="let agencia">
+                <p class="text-truncate">{{agencia.association.interestRate | number : '1.2-2' }} %</p>
+            </mat-cell>
+        </ng-container> -->
+
+
+
+    <!-- Active Column -->
+    <ng-container matColumnDef="actions">
+        <mat-header-cell *matHeaderCellDef mat-sort-header fxHide fxShow.gt-xs>Acciones</mat-header-cell>
+        <mat-cell *matCellDef="let agencia" fxHide fxShow.gt-xs>
+            <button mat-icon-button (click)="agencias_edit(agencia)" > <mat-icon>edit</mat-icon> </button>
+            <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Aditional Actions to Edit">
+                <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+                <button mat-menu-item>
+                  <mat-icon>business</mat-icon>
+                  <span>Ver Detalles de Asociación</span>
+                </button>
+                <button mat-menu-item disabled>
+                  <mat-icon>people</mat-icon>
+                  <span>Cambiar Datos de Contacto</span>
+                </button>
+                <button mat-menu-item disabled>
+                    <mat-icon>groups</mat-icon>
+                    <span>Ver listado de Socios</span>
+                  </button>
+              </mat-menu>
+
+
+        </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns; sticky:true"></mat-header-row>
+
+    <!-- <mat-row *matRowDef="let users; columns: displayedColumns;" class="product" matRipple [routerLink]="'/apps/e-commerce/products/'+product.id+'/'+product.handle"> -->
+    <mat-row *matRowDef="let asociaciones; columns: displayedColumns;" class="product" matRipple>
+
+    </mat-row>
+
+</mat-table>
+
+<mat-paginator #paginator [length]="dataSource.filteredData.length" [pageIndex]="0" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]">
+</mat-paginator>

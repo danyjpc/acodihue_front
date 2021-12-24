@@ -1,0 +1,27 @@
+<div class="page-layout simple fullwidth">
+
+    <!-- HEADER -->
+    <div class="header brown-300 pl-24  pb-4 pt-4 pr-4" fxLayout="row" fxLayoutAlign="start center">
+        <div fxFlex="80" fxFlexAlign="start start">
+            <h3> <button mat-icon-button (click)="bo_back()">
+                    <mat-icon>arrow_back</mat-icon>
+                </button> Preinscripciones</h3>
+        </div>
+        <div fxFlex="20" fxFlexAlign="end end">
+            <button mat-flat-button color="primary" [routerLink]="'/associate/pre-register'" class="mb-5">
+                <mat-icon>add</mat-icon> Nueva Preinscripción
+            </button>
+        </div>
+
+    </div>
+    <!-- / HEADER -->
+
+    <!-- CONTENT -->
+    <div class="p-24 " fxLayout="column" fxLayoutAlign="start">
+        <app-filter-credits-socios-form [type]="'socios'"></app-filter-credits-socios-form>
+        <app-pre-register-list fxLayout="column"></app-pre-register-list>
+
+    </div>
+    <!-- / CONTENT -->
+
+</div>

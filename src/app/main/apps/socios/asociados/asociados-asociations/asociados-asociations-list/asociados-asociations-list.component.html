@@ -1,0 +1,52 @@
+<div fxLayout="column">
+    <div fxLayout="row" class="pb-8" fxLayoutAlign="end end">
+        <!-- <button mat-raised-button color="primary" (click)="newBeneficiary()"><mat-icon>add</mat-icon> Agregar Conyuge</button> -->
+        
+          <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="phone-menu">
+            <mat-icon>more_horiz</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu">
+            <button (click)="newAsociation()" mat-menu-item>
+              <mat-icon>person_add</mat-icon>
+              <span>Agregar Asociación</span>
+            </button>
+          </mat-menu>
+    </div>
+    <table mat-table [dataSource]="asociacionesMembers" class="mat-elevation-z8">
+  
+      <!--- Note that these columns can be defined in any order.
+            The actual rendered columns are set as a property on the row definition" -->
+    
+      <!-- Position Column -->
+      <ng-container matColumnDef="asociation">
+        <th mat-header-cell *matHeaderCellDef> Nombre Asociación(a) </th>
+        <td mat-cell *matCellDef="let asociation"> {{asociation.organization.organizationName}}</td>
+      </ng-container>
+    
+      <!-- Name Column -->
+      <ng-container matColumnDef="dateinit">
+        <th mat-header-cell *matHeaderCellDef> Fecha de Ingreso </th>
+        <td mat-cell *matCellDef="let asociation"> {{ asociation.admissionDate | date : 'mediumDate' }} </td>
+      </ng-container>
+    
+      <!-- Weight Column -->
+      <ng-container matColumnDef="rate">
+        <th mat-header-cell *matHeaderCellDef> Tasa de Interés  </th>
+        <td mat-cell *matCellDef="let asociation"> {{asociation.organization.interestRate}} % </td>
+      </ng-container>
+      <!-- Weight Column -->
+
+        
+      <!-- Symbol Column -->
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef>  </th>
+        <td mat-cell *matCellDef="let asociation"> 
+          <!-- <button (click)="open_edit_modal(asociation)" mat-icon-button><mat-icon>edit</mat-icon> Editar </button> -->
+        </td>
+      </ng-container>
+    
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </div>
+    

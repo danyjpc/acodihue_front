@@ -1,0 +1,16 @@
+<div fxLayout="column">
+    <h2><b>Estado patrimonial</b></h2>
+
+    <mat-tab-group mat-stretch-tabs class="example-stretched-tabs mat-elevation-z4">
+
+        <mat-tab label="Activo">
+            <app-record-ps-tabs [typePS]="'activos'"></app-record-ps-tabs>
+        </mat-tab>
+
+        <mat-tab label="Pasivo"> 
+            <app-record-ps-tabs [typePS]="'pasivos'"></app-record-ps-tabs>
+        </mat-tab>
+
+    </mat-tab-group>
+    <br>
+</div>

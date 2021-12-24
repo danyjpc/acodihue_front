@@ -1,0 +1,16 @@
+<div fxLayout="row" fxLayoutAlign="start center">
+    <div fxFlex="80" fxLayoutAlign="star center">
+        <span style="font-size: 13px;">Cuentas</span>
+    </div>
+    <div fxFlex="20" fxLayoutAlign="end center" >
+        <button mat-icon-button>
+            <mat-icon>add_box</mat-icon>
+          </button>
+    </div>
+</div> 
+
+<mat-divider class="mb-20"></mat-divider>
+<ng-container *ngFor="let account of accounts">
+    <app-accounts-single-widget   [account]="account"></app-accounts-single-widget>
+    <mat-divider class="mt-20"></mat-divider>
+</ng-container>

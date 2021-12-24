@@ -1,0 +1,61 @@
+<form class="mat-card  p-24 " fxLayout="column" fxLayoutAlign="start" fxFlex="1 0 auto" name="form" #asociationMember="ngForm">
+    <div class="h2 mb-24">Asociaciones</div>
+    <hr>
+    <mat-form-field class="autocomplete" appearance="outline" fxFlex="100">
+        <mat-label> Asociacion </mat-label>
+        <input type="text"
+                placeholder="Seleccione Asociacion"
+                aria-label="Number"  
+                
+                matInput
+                [formControl]="myControl"
+                [matAutocomplete]="auto">
+        <mat-autocomplete  #auto="matAutocomplete" [displayWith]="getTitle.bind(this)" >
+        <mat-option *ngFor="let option of filteredOptions | async" [value]="option.association.organizationKey">
+            {{option.association.organizationName}}
+        </mat-option>
+        </mat-autocomplete>
+        <mat-icon matSuffix class="secondary-text">outlined_flag</mat-icon>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" fxFlex="100" class="pl-4">
+        <mat-label>Fecha Ingreso</mat-label>
+        <input matInput [matDatepicker]="picker"   [(ngModel)]="this.asociationMember.admissionDate" name="admissionDate" id="admissionDate">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+    
+
+    <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
+        
+        <button *ngIf="this.action === 'new'"
+            (click)="saveForm()"
+            [disabled]="asociationMember.invalid" 
+            class="mr-8" 
+            mat-raised-button 
+            color="primary">
+            Guardar
+        </button>
+
+        <button 
+            *ngIf="this.action === 'edit'"
+            (click)="saveForm()"
+            [disabled]="asociationMember.invalid" 
+            class="mr-8" 
+            mat-raised-button 
+            color="primary">
+            Actualizar Datos
+        </button>
+
+
+        <button 
+            (click)="dialogRef.close()"
+            class="mr-8" 
+            mat-raised-button 
+            color="primary">
+            Cancelar
+        </button>
+
+    </div>
+
+</form>

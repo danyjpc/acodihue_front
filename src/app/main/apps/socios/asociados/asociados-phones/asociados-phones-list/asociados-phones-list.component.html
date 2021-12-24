@@ -1,0 +1,38 @@
+<table mat-table [dataSource]="asociatePhones" class="mat-elevation-z8">
+
+    <!--- Note that these columns can be defined in any order.
+          The actual rendered columns are set as a property on the row definition" -->
+  
+    <!-- Position Column -->
+    <ng-container matColumnDef="leader">
+      <th mat-header-cell *matHeaderCellDef>Leader </th>
+      <td mat-cell *matCellDef="let phone"> 
+        <mat-icon *ngIf="phone.leader">check_circle</mat-icon>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="numero">
+      <th mat-header-cell *matHeaderCellDef> Número de télefono </th>
+      <td mat-cell *matCellDef="let phone"> {{phone.phone}} </td>
+    </ng-container>
+  
+    <!-- Name Column -->
+    <ng-container matColumnDef="type">
+      <th mat-header-cell *matHeaderCellDef> Tipo de Contacto </th>
+      <td mat-cell *matCellDef="let phone"> {{phone.type.description}} </td>
+    </ng-container>
+  
+
+  
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef> Acciones </th>
+      <td mat-cell *matCellDef="let phone"> 
+        <button (click)="editphone(phone)" mat-icon-button><mat-icon>edit</mat-icon> Editar </button>
+      </td>
+    </ng-container>
+  
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+  

@@ -1,0 +1,14 @@
+.header {
+    height: 60px  !important;
+    min-height: 60px !important; 
+    max-height: 60px im !important;
+}
+
+
+.mat-tab-label-container {
+    display: flex;
+    flex-grow: 1;
+    overflow: hidden;
+    z-index: 1;
+    background: whitesmoke !important;
+}

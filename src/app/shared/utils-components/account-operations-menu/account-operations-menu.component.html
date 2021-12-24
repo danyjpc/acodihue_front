@@ -1,0 +1,13 @@
+
+
+  <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+    <mat-icon>account_balance</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu">
+    <button (click)="openModal(option)"  *ngFor="let option of accountOperations" mat-menu-item>
+        <mat-icon>{{option.icon}}</mat-icon>
+        <span>{{option.description}}</span>
+      </button>
+  
+  </mat-menu>
+  

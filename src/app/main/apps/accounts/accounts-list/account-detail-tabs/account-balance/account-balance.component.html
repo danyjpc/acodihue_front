@@ -1,0 +1,104 @@
+
+  <ng-container *ngIf="dataSource.data; then data; else nodata"></ng-container>
+    
+  <ng-template #data>
+    
+    <div *ngIf="!this.currentMont" fxLayout="row" class="mt-20" fxLayoutAlign="end center" fxLayoutGap="gappx">
+        
+            <mat-form-field appearance="outline" fxFlex="30"> 
+                <mat-label>Filtrar por Mes</mat-label>
+                <mat-select  (selectionChange)="loadMovementesByMont($event.value)" name="year"  [(ngModel)]="currenMont" id ="year" >
+                    <mat-option *ngFor="let month of Monts" [value]="month.index" >
+                        {{month.name}}
+                    </mat-option>
+                </mat-select>
+                <mat-icon matSuffix class="secondary-text">filter_alt</mat-icon>
+                
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" fxFlex="50" class="ml-12">
+              <mat-label>Seleccione un rango de fecha si desea descargar en excel</mat-label>
+              <mat-date-range-input [formGroup]="range" required [rangePicker]="picker">
+                <input matStartDate formControlName="start" placeholder="Start date">
+                <input matEndDate formControlName="end" placeholder="End date">
+              </mat-date-range-input>
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-date-range-picker #picker></mat-date-range-picker>
+            
+              <mat-error *ngIf="range.controls.start.hasError('matStartDateInvalid')">Invalid start date</mat-error>
+              <mat-error *ngIf="range.controls.end.hasError('matEndDateInvalid')">Invalid end date</mat-error>
+            </mat-form-field>
+            
+            <div fxFlex="20">  
+                <div fxLayoutAlign="end center">
+                    <button (click)="downloadMovementsReport()"  mat-icon-button color="primary">
+                        <mat-icon>cloud_download</mat-icon>
+                    </button>
+                </div>
+            </div>
+        
+    </div>
+
+    <div class="example-container mat-elevation-z8">
+        <table #table mat-table [dataSource]="dataSource">
+      
+          <!-- Position Column -->
+          <ng-container matColumnDef="details">
+            <th mat-header-cell *matHeaderCellDef>  </th>
+            <td mat-cell *matCellDef="let account"> 
+    
+                <div>
+                    <!-- <strong *ngIf="account.credit > 0">Aporte: {{account.transactionType.description}}</strong>
+                    <strong *ngIf="account.debit >  0">Retiro: {{account.transactionType.description}}</strong> -->
+                    <span *ngIf="account.credit > 0"><strong >Déposito: </strong> {{account.transactionType.description}}</span>
+                    <span *ngIf="account.debit > 0"><strong >Retiro: </strong> {{account.transactionType.description}}</span>
+
+                </div>
+                <div>
+                    <span> Doc: #{{account.transaction_no}}  | Fecha:  </span> 
+                    <span>{{account.date_created | date : 'medium'}}</span>
+                </div>
+                <div>
+                  <span style="color: #848282; font-weight: 300; ">  {{account.annotation}}</span>
+                </div>
+    
+            </td>
+          </ng-container>
+      
+          <!-- Name Column -->
+          <ng-container matColumnDef="debit">
+            <th mat-header-cell *matHeaderCellDef> <strong>Débitos</strong> </th>
+            <td mat-cell *matCellDef="let account"> 
+                <span *ngIf="account.debit > 0"> {{account.debit | currency: 'GTQ': 'symbol'}} </span>
+                <span *ngIf="account.debit == 0"> -- </span>
+            </td>
+          </ng-container>
+      
+          <!-- Weight Column -->
+          <ng-container matColumnDef="credit">
+            <th mat-header-cell *matHeaderCellDef> <strong>Créditos</strong> </th>
+            <td mat-cell *matCellDef="let account"> 
+                <span *ngIf="account.credit > 0"> {{account.credit | currency: 'GTQ': 'symbol'}} </span>
+                <span *ngIf="account.credit == 0"> -- </span>
+            </td>
+          </ng-container>
+      
+          <!-- Symbol Column -->
+          <ng-container matColumnDef="balance">
+            <th mat-header-cell *matHeaderCellDef> Balance </th>
+            <td mat-cell *matCellDef="let account"> {{account.balance | currency : 'GTQ' : 'symbol'}} </td>
+          </ng-container>
+      
+          <tr mat-header-row *matHeaderRowDef="displayedColumns;"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+    
+        <mat-paginator [pageSizeOptions]="[1, 100, 200]" showFirstLastButtons></mat-paginator>
+      </div>
+  </ng-template>
+
+  <ng-template #nodata>
+      <h3>Seleccione una cuenta de la izuquierda para ver mas detalles</h3>
+  </ng-template>
+  
+  

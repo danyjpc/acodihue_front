@@ -1,0 +1,72 @@
+<div fxFlex="100" fxLayout="column" >
+    <div fxLayout="row" fxFlex="100" fxLayoutAlign="start center space-between">
+      <div fxFlex="70" fxLayoutAlign="start center">
+        <h3> DOCUMENTACION DEL EXPEDIENTE:  </h3>
+      </div>
+      <div fxFlex="30" fxLayoutAlign="end start">
+        <button (click)="downloadDocuments()" style="align-items: rigth;" mat-button class="primary">Descargar Archivo <mat-icon>cloud_download</mat-icon></button>
+      </div>
+    </div>
+    <div>  
+    <table mat-table [dataSource]="itemDetails" class="mat-elevation-z8">
+
+        <!--- Note that these columns can be defined in any order.
+              The actual rendered columns are set as a property on the row definition" -->
+      
+        <!-- Position Column -->
+        <ng-container matColumnDef="number">
+          <th mat-header-cell *matHeaderCellDef> No. </th>
+          <td mat-cell *matCellDef="let item"> {{item.number}} </td>
+        </ng-container>
+      
+        <!-- Name Column -->
+        <ng-container matColumnDef="details">
+          <th mat-header-cell *matHeaderCellDef>  Descripción del Documento </th>
+          <td mat-cell *matCellDef="let item"> {{item.subRequirements | fullRequirementsPipe}} </td>
+        </ng-container>
+      
+        <!-- Weight Column -->
+        <ng-container matColumnDef="icon">
+          <th mat-header-cell *matHeaderCellDef> Chequeo  </th>
+          <td mat-cell *matCellDef="let item"> 
+            <mat-icon *ngIf="item.percentageComplete == 100" class="green">check_circle</mat-icon>
+            <mat-icon *ngIf="item.percentageComplete  >= 85 && item.percentageComplete < 99 " class="yellow">error_outline</mat-icon>
+            <mat-icon *ngIf="item.percentageComplete  < 85 " class="red">error</mat-icon>    
+          </td>
+        </ng-container>
+      
+        <!-- Symbol Column -->
+        <ng-container matColumnDef="percent">
+          <th mat-header-cell *matHeaderCellDef> % </th>
+          <td mat-cell *matCellDef="let item"> 
+
+            {{item.percentageComplete}}%
+          </td>
+        </ng-container>
+      
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    </div>
+
+    <!-- <table class="table" style="width: 100%;">
+        <thead>
+            <th>No.</th>
+            <th>Descripción del documento</th>
+            <th>Chequeo</th>
+            <th>%</th>
+        </thead>
+
+        <tbody>
+            <tr *ngFor="let item of itemDetails">
+                <td></td>
+                <td> </td>
+                <td> 
+                    
+
+                </td>
+                <td>/td>
+            </tr>
+        </tbody>
+    </table> -->
+</div>

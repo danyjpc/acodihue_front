@@ -1,0 +1,14 @@
+<div fxLayout="column">
+    <h2><b>Relación Ingresos - Egresos</b></h2>
+
+    <mat-tab-group mat-stretch-tabs class="example-stretched-tabs mat-elevation-z4">
+        <mat-tab label="Ingresos" >
+            <app-record-ie-tabs [typeIE]="'income'"></app-record-ie-tabs>
+        </mat-tab>
+
+        <mat-tab label="Egresos">  
+            <app-record-ie-tabs [typeIE]="'expense'"></app-record-ie-tabs>
+        </mat-tab>
+
+    </mat-tab-group>
+</div>

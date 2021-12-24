@@ -1,0 +1,148 @@
+
+
+    <form mat-dialog-content class="p-24 pb-0 m-0" fxLayout="column" fxFlex="1 0 auto" #benficiaryForm="ngForm" >
+        <h3>{{this.dialogTitle}}</h3>
+
+        <div fxLayout="row" fxLayoutAlign="start start" fxFlex="1 0 auto">
+            <mat-form-field appearance="outline" fxFlex="50" class="pr-4">                
+                <mat-label>Primer y Segundo Nombre. </mat-label>
+                <input matInput [(ngModel)]="this.fiador.person.firstName" name="firstName" id="firstName" required>
+                <mat-icon matSuffix class="secondary-text">person</mat-icon>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" fxFlex="50" class="pl-4">                
+                <mat-label>Primer y Segundo Apellido</mat-label>
+                <input matInput [(ngModel)]="this.fiador.person.lastName" name="lastname" id="lastname" required>
+                <mat-icon matSuffix class="secondary-text">person</mat-icon>
+            </mat-form-field>
+        </div>
+
+        <div fxLayout="row" fxLayoutAlign="start start" fxFlex="1 0 auto">
+            <mat-form-field appearance="outline" fxFlex="50" class="pr-4">                
+                <mat-label>CUI </mat-label>
+                <input matInput [(ngModel)]="this.fiador.person.cui" name="cui" id="cui" required>
+                <mat-icon matSuffix class="secondary-text">person</mat-icon>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" fxFlex="50" class="pl-4">                
+                <mat-label>Estado Civil</mat-label>
+                <mat-select [(ngModel)]="this.fiador.person.maritalStatus.typologyId" name="maritalStatus" id="maritalStatus" required>
+                    <mat-option *ngFor="let estado_civil of EstadoCivilTypologies.childTypologies" [value]="estado_civil.typologyId">
+                        {{estado_civil.description}}
+                    </mat-option>
+                </mat-select>
+                <mat-icon matSuffix class="secondary-text">person</mat-icon>
+            </mat-form-field>
+        </div>
+
+
+        <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
+            <mat-form-field appearance="outline" fxFlex="50" class="pr-4">
+                <mat-label>Fecha Nacimiento</mat-label>
+                <input matInput [matDatepicker]="picker"   [(ngModel)]="this.fiador.person.birthday" name="birthday" id="birthday">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+
+
+            <mat-form-field appearance="outline" fxFlex="50" class="pl-4"> 
+                <mat-label>Teléfono de Contacto </mat-label>
+                <input matInput type="number" [(ngModel)]="this.fiador.phone.phone" name="phone" id="phone">
+                <mat-icon matSuffix class="secondary-text">smartphone</mat-icon>
+            </mat-form-field>
+        </div>
+
+        <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
+            <mat-form-field appearance="outline" fxFlex="50" class="pr-4">
+                <mat-label>Profesion</mat-label>
+                <mat-select [(ngModel)]="this.fiador.person.profession.typologyId" name="profess" id="profess" required>
+                    <mat-option *ngFor="let prof of ProfesionTypologies.childTypologies" [value]="prof.typologyId">
+                        {{prof.description}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="outline" fxFlex="50" class="pl-4" >
+                <mat-label>correo electrónico</mat-label>
+                <input matInput [(ngModel)]="this.fiador.person.email" name="email" id="email">
+                <mat-icon matSuffix class="secondary-text">attach_email</mat-icon>
+            </mat-form-field>
+        </div>
+
+        
+        <div fxLayout="row" *ngIf="this.title !== 'Fiador'" fxLayoutAlign="start center" fxFlex="1 0 auto">
+
+            <mat-form-field appearance="outline" fxFlex="50" class="pr-4"> 
+                <mat-label>Cantidad de hijos Hombres</mat-label>
+                <input matInput type="number" [(ngModel)]="this.fiador.noBoys" name="boys" id="boys">
+                <mat-icon matSuffix class="secondary-text">person</mat-icon>
+            </mat-form-field>
+
+
+            <mat-form-field appearance="outline" fxFlex="50" class="pl-4"> 
+                <mat-label>Cantidad de hijos Mujeres</mat-label>
+                <input matInput type="number" [(ngModel)]="this.fiador.noGirls" name="girls" id="girls">
+                <mat-icon matSuffix class="secondary-text">person</mat-icon>
+            </mat-form-field>
+
+        </div>
+
+        <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
+            <mat-slide-toggle [(ngModel)]="this.fiador.isLeader" name="leader" id="leader">Establecer como Principal</mat-slide-toggle>
+        </div>
+
+
+
+
+
+
+        <!-- <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
+            <mat-slide-toggle [(ngModel)]="this.address.leader" name="leader" id="leader">Establecer como Principal</mat-slide-toggle>
+        </div> -->
+
+
+        <div mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center">
+
+            <button mat-raised-button color="primary"
+                class="mr-8"
+                (click)="matDialogRef.close()"
+                aria-label="Delete"
+                matTooltip="Delete">
+                Cancelar
+            </button>
+            <button *ngIf="action !== 'edit'"
+                    mat-raised-button
+                    color="primary"
+                    class="save-button"
+                    (click)="closeDigalog()"
+                    [disabled]="benficiaryForm.invalid"
+                    aria-label="SAVE">
+                Guardar
+            </button>
+    
+            <button *ngIf="action === 'edit'"
+                    mat-raised-button
+                    color="primary"
+                    class="save-button"
+                    (click)="closeDigalog()"
+                    [disabled]="benficiaryForm.invalid"
+                    aria-label="SAVE">
+                Actualizar
+            </button>
+
+        </div>
+
+        
+    </form>
+
+
+
+    <!-- <mat-form-field appearance="outline" fxFlex="50" class="pl-4" >
+        <mat-label>Municipio</mat-label>
+        <mat-select name="municipio" id="municipio" [(ngModel)]="this.address.city.typologyId"  required>
+            <mat-option *ngFor="let municipio of municipiosTypologies.childTypologies" [value]="municipio.typologyId">
+                {{municipio.description}}
+            </mat-option>
+        </mat-select>
+        <mat-icon matSuffix class="secondary-text">location_on</mat-icon>
+        <mat-error>Municipio es requerido!</mat-error>
+    </mat-form-field> -->

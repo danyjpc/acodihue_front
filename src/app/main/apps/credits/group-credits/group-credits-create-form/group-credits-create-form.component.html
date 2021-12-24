@@ -1,0 +1,35 @@
+<form action="" fxLayout="column" #creditGroupForm="ngForm">
+    <h3><b>Crear Nuevo Grupo de Credito</b></h3>
+    <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
+        <mat-form-field appearance="outline" fxFlex="100">
+            <mat-label>Nombre de grupo</mat-label>
+            <input matInput required>
+            <mat-error>El campo es requerido!</mat-error>
+        </mat-form-field>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
+        <mat-form-field appearance="outline" fxFlex="100">
+            <mat-label>Agencia que registra</mat-label>
+            <input matInput required>
+            <mat-error>El campo es requerido!</mat-error>
+        </mat-form-field>
+    </div>
+
+    <div mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center">
+        <button mat-raised-button color="primary"
+            class="mr-8"
+            (click)="matDialogRef.close()"
+            aria-label="Cancelar">
+            Cancelar
+        </button>
+
+        <button 
+                mat-raised-button
+                color="primary"
+                (click)="matDialogRef.close()"
+                [disabled]="creditGroupForm.invalid">
+            Guardar
+        </button>
+
+    </div>
+</form>

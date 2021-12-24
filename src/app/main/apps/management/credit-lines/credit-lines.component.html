@@ -1,0 +1,54 @@
+<div id="credit-lines" class="page-layout simple left-sidebar inner-sidebar inner-scroll">
+
+    <!-- HEADER -->
+    <div class="header brown-300 p-16 p-sm-24" fxLayout="column" fxLayoutAlign="start"
+         fxLayout.gt-xs="row" fxLayoutAlign.gt-xs="space-between center">
+
+        <div fxLayout="row" fxLayoutAlign="start center">
+
+            <div class="logo" fxLayout="row" fxLayoutAlign="start center">
+                
+                          <button mat-icon-button (click)="go_back()">
+                            <mat-icon class="logo-icon mr-16"
+                            [@animate]="{value:'*',params:{delay:'50ms',scale:'0.2'}}">arrow_back</mat-icon>
+                        </button> 
+            
+                
+                <span class="logo-text h1" [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">
+                    Destinos  de crédito
+                </span>
+            </div>
+
+        </div>
+
+        <div fxLayout="row" fxLayoutAlign="start center">
+            <div class="" fxLayout="row" fxLayoutAlign="start center">
+                <button (click)="newCreditLine()" mat-raised-button color="primary"> <mat-icon>add</mat-icon> Agregar Nuevo destino de Crédito</button>
+            </div>
+        </div>
+
+
+
+    </div>
+    <!-- / HEADER -->
+
+    <!-- CONTENT -->
+    <div class="content">
+
+        <!-- CENTER -->
+        <div class="center p-24" fusePerfectScrollbar>
+
+            <!-- CONTENT -->
+            <div class="content">
+                <app-credit-lines-list></app-credit-lines-list>
+            </div>
+            <!-- / CONTENT -->
+
+        </div>
+        <!-- / CENTER -->
+
+    </div>
+    <!-- / CONTENT-->
+
+</div>
+

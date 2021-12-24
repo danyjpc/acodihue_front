@@ -1,0 +1,26 @@
+<div class="page-layout simple fullwidth">
+
+    <!-- HEADER -->
+    <div class="header brown-300 pl-24  pb-4 pt-4 pr-4" fxLayout="row" fxLayoutAlign="space-between center">
+        <div fxFlex="80">
+            <h3> <button mat-icon-button (click)="bo_back()">
+                    <mat-icon>arrow_back</mat-icon>
+                </button> Listado de Créditos Grupales</h3>
+        </div>
+        <div fxFlex="20">
+            <button mat-raised-button class="primary" (click)="openDialog()">
+                <mat-icon>group_add</mat-icon> Nuevo grupo de credito
+            </button>
+        </div>
+
+    </div>
+    <!-- / HEADER -->
+
+    <!-- CONTENT -->
+    <div class="p-24" fxLayout="column" fxLayoutAlign="start">
+        <app-filter-credits-socios-form [type]="'credits'"></app-filter-credits-socios-form>
+        <app-group-credits-list fxLayout="column"></app-group-credits-list>
+    </div>
+    <!-- / CONTENT -->
+
+</div>

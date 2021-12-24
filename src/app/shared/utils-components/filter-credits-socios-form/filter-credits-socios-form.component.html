@@ -1,0 +1,49 @@
+<mat-card>
+    
+    <form fxLayout="row" fxFlex="100"   #filterForm="ngForm">
+        
+        <mat-form-field appearance="outline" class="pl-8" fxFlex="25">
+            <mat-label>Fecha Inical</mat-label>
+            <input matInput [matDatepicker]="picker" [(ngModel)]="this.params.date_ini" name="date_ini" id="date_ini">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="pl-8" fxFlex="25">
+            <mat-label>Fecha Final</mat-label>
+            <input matInput [matDatepicker]="picker2" [(ngModel)]="this.params.date_end" name="date_end" id="date_end">
+            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+            <mat-datepicker #picker2></mat-datepicker>
+        </mat-form-field>
+
+
+        <mat-form-field *ngIf="type === 'socios'" appearance="outline" fxFlex="25" class="px-8 ">                
+            <mat-label>Agencia</mat-label>
+            <mat-select   [(ngModel)]="this.params.agency" name="agency" id ="agency" >
+                <mat-option *ngFor="let agencia of Agencias" [value]="agencia.organizationKey" >
+                    {{agencia.organizationName}}
+                </mat-option>
+            </mat-select>
+            <mat-icon matSuffix class="secondary-text">account_balance</mat-icon>
+            <mat-error>Seleccione Agencia!</mat-error>
+        </mat-form-field>
+
+
+        <mat-form-field *ngIf="type === 'credits'" appearance="outline" fxFlex="25" class="px-8 ">                
+            <mat-label>Estado de Operación</mat-label>
+            <mat-select  required [(ngModel)]="this.params.status_operated" name="status_operated" id ="status_operated" >
+                <mat-option *ngFor="let status_operated of statusOperatedTypologies.childTypologies" [value]="status_operated.typologyId" >
+                    {{status_operated.description}}
+                </mat-option>
+            </mat-select>
+            <mat-icon matSuffix class="secondary-text">fact_check</mat-icon>
+            <mat-error>Seleccione Estado de Operación!</mat-error>
+        </mat-form-field>
+        
+        <div fxFlex="25">
+            <button style="width: 100%; height: 48px;" (click)="filterData()" mat-raised-button color="primary">Filtrar</button>
+        </div>
+        
+
+    </form>
+</mat-card>

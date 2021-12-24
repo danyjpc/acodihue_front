@@ -1,0 +1,34 @@
+// Import Fuse core library
+@import "@fuse/scss/core";
+
+// Import app.theme.scss
+@import "app/app.theme";
+
+
+.mat-form-field {
+    font: 400 11px/1.125 Muli, Helvetica Neue, Arial, sans-serif;
+        font-style: normal;
+        font-variant-caps: normal;
+        font-weight: 400;
+        font-stretch: normal;
+        font-size: 11px;
+        line-height: 1.30;
+        font-family: Muli, Helvetica Neue, Arial, sans-serif;
+        font-size-adjust: none;
+        font-kerning: auto;
+        font-optical-sizing: auto;
+        font-variant-alternates: normal;
+        font-variant-east-asian: normal;
+        font-variant-ligatures: normal;
+        font-variant-numeric: normal;
+        font-variant-position: normal;
+        font-language-override: normal;
+        font-feature-settings: normal;
+        font-variation-settings: normal;
+    letter-spacing: none;
+    font-size: 9pt;
+}
+.divider-title{
+    padding: 6px;
+    background-color: #e1e0df;
+}

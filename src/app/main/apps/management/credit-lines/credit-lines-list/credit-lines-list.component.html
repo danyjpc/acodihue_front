@@ -1,0 +1,43 @@
+
+<div class="mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource">
+  
+      <!-- Position Column -->
+      <ng-container matColumnDef="index">
+        <th mat-header-cell *matHeaderCellDef> No. </th>
+        <td mat-cell *matCellDef="let line; let i = index;"> {{i + 1}} </td>
+      </ng-container>
+  
+      <!-- Name Column -->
+      <ng-container matColumnDef="line">
+        <th mat-header-cell *matHeaderCellDef> destino de Crédito </th>
+        <td mat-cell *matCellDef="let line"> {{line.description}} </td>
+      </ng-container>
+  
+      <!-- Weight Column -->
+      <ng-container matColumnDef="organization">
+        <th mat-header-cell *matHeaderCellDef> Agencia en la que aplica </th>
+        <td mat-cell *matCellDef="let line"> {{line.organization.organizationName}} </td>
+      </ng-container>
+  
+      <!-- Symbol Column -->
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef>  </th>
+        <td mat-cell *matCellDef="let line"> 
+            <button (click)="edit_line(line)" mat-mini-fab color="primary" class="m-4" aria-label="Example icon button with a plus one icon">
+                <mat-icon>edit</mat-icon>
+              </button>
+              
+              <button (click)="delete_credit_line(line)" class="m-4" mat-mini-fab color="primary" aria-label="Example icon button with a plus one icon">
+                <mat-icon>delete</mat-icon>
+              </button>
+        </td>
+      </ng-container>
+  
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+  </div>
+  

@@ -1,0 +1,313 @@
+
+    <form mat-dialog-content class="p-24 pb-0 m-0" fxLayout="column" fxFlex="1 0 auto" #creditGuaranteeForm="ngForm" >
+        <h3>{{this.title}}</h3>
+
+        <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
+            AVALUO No.
+            {{this.guarantee.noReference}} - {{this.guarantee.noYear}}
+        </div>
+
+
+        <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
+            <mat-form-field appearance="outline" fxFlex="33">                
+                <mat-label>Nombre De Finca</mat-label>
+                <input matInput type ="text" [(ngModel)]="this.guarantee.nameFarm" name="nameFarm" id="nameFarm" required>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" fxFlex="34" class="pl-4 pr-4">                
+                <mat-label>Propietario</mat-label>
+                <input  type ="text" matInput [(ngModel)]="this.guarantee.owner" name="owner" id="owner" required>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" fxFlex="33">                
+                <mat-label>Tipo de Escritura </mat-label>
+                <mat-select  required [(ngModel)]="this.guarantee.documentType.typologyId" name="documentType" id ="documentType" >
+                    <mat-option *ngFor="let documentType of documentTypeTypologyes.childTypologies" [value]="documentType.typologyId" >
+                        {{documentType.description}}
+                    </mat-option>
+                </mat-select>
+                <mat-icon matSuffix class="secondary-text">wc</mat-icon>
+                <mat-error>Seleccione Tipo de Escritura</mat-error>
+                
+            </mat-form-field>
+        </div>
+
+        <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
+            <mat-form-field appearance="outline" fxFlex="33">                
+                <mat-label>Departamento</mat-label>
+                <mat-select  required [(ngModel)]="this.guarantee.address.state.typologyId" name="departamento" id ="departamento"  (selectionChange)="loadNewMunicipios($event)" >
+                    <mat-option *ngFor="let departamento of departamentosTypologies.childTypologies" [value]="departamento.typologyId" >
+                        {{departamento.description}}
+                    </mat-option>
+                </mat-select>
+                <mat-icon matSuffix class="secondary-text">location_on</mat-icon>
+                <mat-error>Seleccione  departamento!</mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="outline" fxFlex="34" class="pl-4 pr-4">
+                <mat-label>Municipio</mat-label>
+                <mat-select name="municipio" id="municipio" [(ngModel)]="this.guarantee.address.city.typologyId"  required>
+                    <mat-option *ngFor="let municipio of municipiosTypologies.childTypologies" [value]="municipio.typologyId">
+                        {{municipio.description}}
+                    </mat-option>
+                </mat-select>
+                <mat-icon matSuffix class="secondary-text">location_on</mat-icon>
+                <mat-error>Municipio es requerido!</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" fxFlex="33">                
+                <mat-label>Dirección</mat-label>
+                <input  type ="text" matInput [(ngModel)]="this.guarantee.address.addressLine" name="addressLine" id="addressLine" required>
+                
+            </mat-form-field>
+        </div>
+
+
+        <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
+            <mat-form-field appearance="outline" fxFlex="33" >                
+                <mat-label>No de Escritura</mat-label>
+                <input matInput type ="text" [(ngModel)]="this.guarantee.address.noPublic" name="escritura" id="escritura" required>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" fxFlex="34" class="pl-4 pr-4">                
+                <mat-label>Finca No</mat-label>
+                <input  type ="number" matInput [(ngModel)]="this.guarantee.address.noFarm" name="finca" id="finca" required>
+            </mat-form-field>
+            <mat-form-field appearance="outline" fxFlex="33">                
+                <mat-label>Folio</mat-label>
+                <input  type ="number" matInput [(ngModel)]="this.guarantee.address.noFolder" name="folio" id="folio" required>
+            </mat-form-field>
+        </div>
+
+
+        <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
+            <mat-form-field appearance="outline" fxFlex="33" >                
+                <mat-label>Libro</mat-label>
+                <input matInput type ="text" [(ngModel)]="this.guarantee.address.noBook" name="book" id="book" required>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" fxFlex="34" class="pl-4 pr-4">
+                <mat-label>Area en Metros</mat-label>
+                <input  type ="number" matInput [(ngModel)]="this.guarantee.areaMeters" name="areaMeters" id="areaMeters" required>
+            </mat-form-field>
+            <mat-form-field appearance="outline" fxFlex="33">                
+                <mat-label>Valor del Metro</mat-label>
+                <input  type ="number" matInput [(ngModel)]="this.guarantee.costPerSquareMeter" name="valueMeters" id="valueMeters" required>
+            </mat-form-field>
+        </div>
+
+        <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
+            <mat-form-field appearance="outline" fxFlex="33" >                
+                <mat-label>Derechos de poseción</mat-label>
+                <input matInput type ="text" [(ngModel)]="this.guarantee.ownershipRights" name="ownRights" id="ownRights" required>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" fxFlex="34" class="pl-4 pr-4"> 
+                <mat-label>Descripcion Has</mat-label>
+                <input  type ="text" [(ngModel)]="this.guarantee.annotation" matInput name="descHas" id="descHas" required>
+            </mat-form-field>
+
+        </div>
+
+
+        <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
+            <mat-form-field appearance="outline" fxFlex="33">                
+                <mat-label>MSNM</mat-label>
+                <input matInput type ="number" [(ngModel)]="this.guarantee.msnm" name="msnm" id="msnm" required>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" fxFlex="34" class="pl-4 pr-4">                
+                <mat-label>Area en Cuerdas</mat-label>
+                <input type ="number" matInput  [(ngModel)]="this.guarantee.noRope" name="areaCuerdas" id="areaCuerdas" required>
+            </mat-form-field>
+            <mat-form-field appearance="outline" fxFlex="33">                
+                <mat-label>Valor de la Cuerda</mat-label>
+                <input  type ="number" matInput [(ngModel)]="this.guarantee.ropeValue" name="repeValue" id="repeValue" required>
+            </mat-form-field>
+        </div>
+
+
+
+        <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
+            <mat-form-field appearance="outline" fxFlex="33">                
+                <mat-label>Área en Hectareas</mat-label>
+                <input matInput type ="number" [(ngModel)]="this.guarantee.noHectares" name="area_hectareas" id="area_hectareas" required>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" fxFlex="34" class="pl-4 pr-4">                
+                <mat-label>Testimonios</mat-label>
+                <input  type ="number" matInput [(ngModel)]="this.guarantee.testimony" name="testimony" id="testimony" required>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" fxFlex="33">                
+                <mat-label>Altura sobre el nivel del mar en mts</mat-label>
+                <input type ="number" matInput  [(ngModel)]="this.guarantee.heightAboveSeaLevel" name="aturaSobreMar" id="aturaSobreMar" required>
+            </mat-form-field>
+        </div>
+
+        <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
+            <mat-form-field appearance="outline" fxFlex="50" class="pr-4">                
+                <mat-label>Topografía</mat-label>
+                <textarea   matInput [(ngModel)]="this.guarantee.topography" name="topography" id="topography" required></textarea>
+            </mat-form-field>
+            <mat-form-field appearance="outline" fxFlex="50" class="pl-4">                
+                <mat-label>Hidrografía</mat-label>
+                <textarea   matInput [(ngModel)]="this.guarantee.hydrography" name="hydrography" id="hydrography" required></textarea>
+            </mat-form-field>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
+            <mat-form-field appearance="outline" fxFlex="50" class="pr-4">                
+                <mat-label>Calidad de los Suelos</mat-label>
+                <textarea   matInput [(ngModel)]="this.guarantee.soilQuality" name="soilQuality" id="soilQuality" required></textarea>
+            </mat-form-field>
+            <mat-form-field appearance="outline" fxFlex="50" class="pl-4">                
+                <mat-label>Cubierta vegetal</mat-label>
+                <textarea   matInput [(ngModel)]="this.guarantee.planCover" name="planCover" id="planCover" required></textarea>
+            </mat-form-field>
+        </div>
+
+        <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
+            <mat-form-field appearance="outline" fxFlex="50" class="pr-4">                
+                <mat-label>Detalle de los Cultivos</mat-label>
+                <textarea   matInput [(ngModel)]="this.guarantee.cultivateDetail" name="cultivateDetail" id="cultivateDetail" required></textarea>
+            </mat-form-field>
+            <mat-form-field appearance="outline" fxFlex="50" class="pl-4">                
+                <mat-label>Explotación de las Fincas Vecinas</mat-label>
+                <textarea   matInput [(ngModel)]="this.guarantee.farmNeighbor" name="farmNeighbor" id="farmNeighbor" required></textarea>
+            </mat-form-field>
+        </div>
+
+        <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
+            <mat-form-field appearance="outline" fxFlex="50" class="pr-4">                
+                <mat-label>Valor de los cultivos permanentes</mat-label>
+                <textarea   matInput [(ngModel)]="this.guarantee.valueOfPermanentCrops" name="valuecultivate" id="valuecultivate" required></textarea>
+            </mat-form-field>
+            <mat-form-field appearance="outline" fxFlex="50" class="pl-4">                
+                <mat-label>Valor de las construcciones en el terreno</mat-label>
+                <textarea   matInput [(ngModel)]="this.guarantee.valueOfBuildings" name="valueBuilding" id="valueBuilding" required></textarea>
+            </mat-form-field>
+        </div>
+
+
+        <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
+            <mat-form-field appearance="outline" fxFlex="50" class="pr-4">                
+                <mat-label>Riesgos Clase y forma</mat-label>
+                <textarea   matInput [(ngModel)]="this.guarantee.riskClassForm" name="riskClassForm" id="riskClassForm" required></textarea>
+            </mat-form-field>
+            <mat-form-field appearance="outline" fxFlex="50" class="pl-4">                
+                <mat-label>Extensión de Riego</mat-label>
+                <textarea   matInput [(ngModel)]="this.guarantee.irrigationExtension" name="irrigationExtension" id="irrigationExtension" required></textarea>
+            </mat-form-field>
+        </div>
+
+
+        <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
+            <mat-form-field appearance="outline" fxFlex="50" class="pr-4">                
+                <mat-label>Detalle de las construcciones</mat-label>
+                <textarea   matInput [(ngModel)]="this.guarantee.buildingDetail" name="buildingDetail" id="buildingDetail" required></textarea>
+            </mat-form-field>
+            <mat-form-field appearance="outline" fxFlex="50" class="pl-4">                
+                <mat-label>Observaciones sobre el terreno</mat-label>
+                <textarea   matInput [(ngModel)]="this.guarantee.annotation2" name="annotation2" id="annotation2" required></textarea>
+            </mat-form-field>
+        </div>
+
+
+
+        <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
+            <mat-form-field appearance="outline" fxFlex="50" class="pr-4">                
+                <mat-label>NORTE</mat-label>
+                <textarea   matInput [(ngModel)]="this.guarantee.northOrigin" name="northOrigin" id="northOrigin" required></textarea>
+            </mat-form-field>
+            <mat-form-field appearance="outline" fxFlex="50" class="pl-4">                
+                <mat-label>SUR</mat-label>
+                <textarea   matInput [(ngModel)]="this.guarantee.southOrigin" name="southOrigin" id="southOrigin" required></textarea>
+            </mat-form-field>
+        </div>
+
+
+        <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
+            <mat-form-field appearance="outline" fxFlex="50" class="pr-4">                
+                <mat-label>ORIENTE</mat-label>
+                <textarea   matInput [(ngModel)]="this.guarantee.orientOrigin" name="orientOrigin" id="orientOrigin" required></textarea>
+            </mat-form-field>
+            <mat-form-field appearance="outline" fxFlex="50" class="pl-4">                
+                <mat-label>PONIENTE</mat-label>
+                <textarea   matInput [(ngModel)]="this.guarantee.westOrigin" name="westOrigin" id="westOrigin" required></textarea>
+            </mat-form-field>
+        </div>
+
+        <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
+            <mat-form-field appearance="outline" fxFlex="100" class="">                
+                <mat-label>VIAS DE COMUNICACION</mat-label>
+                <textarea   matInput [(ngModel)]="this.guarantee.communicationRoutes" name="communicationRoutes" id="communicationRoutes" required></textarea>
+            </mat-form-field>
+        </div>
+
+
+        <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
+            <mat-form-field appearance="outline" fxFlex="33">                
+                <mat-label>CABECERA MUNICIPAL</mat-label>
+                <input type="number"  matInput type ="state" [(ngModel)]="this.guarantee.state"  name="state" id="state" required>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" fxFlex="34" class="pl-4 pr-4">                
+                <mat-label>CABECERA DEPARTAMENTAL</mat-label>
+                <input   type ="number" matInput name="city" [(ngModel)]="this.guarantee.city" id="city" required>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" fxFlex="33">                
+                <mat-label>A CIUDAD CAPITAL</mat-label>
+                <input  matInput [(ngModel)]="this.guarantee.toCity" name="toCity" id="toCity" required>
+            </mat-form-field>
+        </div>
+
+        <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
+            <mat-form-field appearance="outline" fxFlex="34" class="pr-4">                
+                <mat-label>PERSONA QUE REALIZA AVALÚO </mat-label>
+                <mat-select  required [(ngModel)]="this.guarantee.evaluator.personKey" name="personKey" id ="personKey" >
+                    <mat-option *ngFor="let user of this.UserEvaluator" [value]="user.person.personKey" >
+                        {{user.person.firstName}},{{user.person.lastName}}
+                    </mat-option>
+                </mat-select>
+                <mat-icon matSuffix class="secondary-text">wc</mat-icon>
+                <mat-error>Seleccione usuario</mat-error>
+                
+            </mat-form-field>
+        </div>
+        
+
+
+        <div mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center">
+
+            <button mat-raised-button color="primary"
+                class="mr-8"
+                (click)="dialogRef.close()"
+                aria-label="Delete"
+                matTooltip="Delete">
+                Cancelar
+            </button>
+            <button *ngIf="action !== 'edit'"
+                    mat-raised-button
+                    color="primary"
+                    class="save-button"
+                    (click)="closeDigalog()"
+                    [disabled]="creditGuaranteeForm.invalid"
+                    aria-label="SAVE">
+                Guardar
+            </button>
+    
+            <button *ngIf="action === 'edit'"
+                    mat-raised-button
+                    color="primary"
+                    class="save-button"
+                    (click)="closeDigalog()"
+                    [disabled]="creditGuaranteeForm.invalid"
+                    aria-label="SAVE">
+                Actualizar
+
+            </button>
+
+        </div>
+
+        
+    </form>

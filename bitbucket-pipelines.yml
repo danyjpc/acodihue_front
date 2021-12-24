@@ -1,0 +1,41 @@
+image: atlassian/default-image:2
+
+pipelines:
+
+#   default:
+#     - step:
+#         name: Build  image docker beta GCA
+#         services:
+#           - docker
+#         script:
+#             script:
+#             - echo "Clone all the things!!"
+          
+  branches:
+    master:
+    - step:
+        name: Build  image docker Dental WEB 
+        services:
+        - docker
+        script:
+        - export IMAGE_NAME=$HUB_SERVER/dental-web:latest
+            # build the Docker image (this will use the Dockerfile in the root of the repo)
+        - docker build -t $IMAGE_NAME -f dental-web/Dockerfile dental-core 
+            # authenticate with the Docker Hub registry
+        - docker login $DOCKER_HUB_SERVER- --username $DOCKER_HUB_USERNAME --password $DOCKER_HUB_PASSWORD
+            # push the new Docker image to the Docker registry
+        - docker push $IMAGE_NAME
+    develop:
+    - step:
+        name: Build  image docker dental beta
+        services:
+        - docker
+        script:
+        - export IMAGE_NAME=$HUB_SERVER/dental-core:beta
+            # build the Docker image (this will use the Dockerfile in the root of the repo)
+        - docker build -t $IMAGE_NAME -f dental-web/Dockerfile dental-core 
+            # authenticate with the Docker Hub registry
+        - docker login $DOCKER_HUB_SERVER- --username $DOCKER_HUB_USERNAME --password $DOCKER_HUB_PASSWORD
+            # push the new Docker image to the Docker registry
+        - docker push $IMAGE_NAME
+    

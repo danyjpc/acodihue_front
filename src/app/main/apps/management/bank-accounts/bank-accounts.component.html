@@ -1,0 +1,66 @@
+<div id="bank-account" class="page-layout simple left-sidebar inner-sidebar inner-scroll">
+
+    <!-- HEADER -->
+    <div class="header brown-300 p-16 p-sm-24" fxLayout="column" fxLayoutAlign="start"
+         fxLayout.gt-xs="row" fxLayoutAlign.gt-xs="space-between center">
+
+        <div fxLayout="row" fxLayoutAlign="start center">
+
+            <div class="logo" fxLayout="row" fxLayoutAlign="start center">
+                <mat-icon class="logo-icon mr-16">account_balance_wallet
+                </mat-icon>
+                <span class="logo-text h1">
+                    Cuentas
+                </span>
+            </div>
+
+        </div>
+
+
+        <!-- SEARCH -->
+        <div class="ml-sm-32" fxLayout="row" fxLayoutAlign="center center" fxFlex>
+
+            <div class="search-wrapper mt-16 mt-sm-0">
+
+                <div class="search" fxFlex fxLayout="row" fxLayoutAlign="start center">
+                    <mat-icon color="primary">search</mat-icon>
+                    <!--<input [formControl]="searchInput"  placeholder="Search for a contact">-->
+                </div>
+
+            </div>
+
+        </div>
+        <!-- / Add new-->
+
+        <div fxLayout="row" fxLayoutAlign="start center">
+            <div class="" fxLayout="row" fxLayoutAlign="start center">
+                <button  mat-raised-button color="primary" (click)="newAccount()"> 
+                    <mat-icon>add</mat-icon> Agregar nueva cuenta 
+                </button>
+            </div>
+        </div>
+
+
+
+    </div>
+    <!-- / HEADER -->
+
+    <!-- CONTENT -->
+    <div class="content">
+
+        <!-- CENTER -->
+        <div class="center p-24" fusePerfectScrollbar>
+
+            <!-- CONTENT -->
+            <div class="content">
+                <app-bank-accounts-list></app-bank-accounts-list>
+            </div>
+            <!-- / CONTENT -->
+
+        </div>
+        <!-- / CENTER -->
+
+    </div>
+    <!-- / CONTENT-->
+
+</div>

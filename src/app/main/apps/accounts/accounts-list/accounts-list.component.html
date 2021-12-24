@@ -1,0 +1,57 @@
+<div class="page-layout simple left-sidebar inner-sidebar">
+
+    <!-- HEADER -->
+    <div class="header brown-300 p-24" fxLayout="row" fxLayoutAlign="start center">
+
+        <button mat-icon-button class="sidebar-toggle mr-8" fxHide.gt-md
+                (click)="toggleSidebar('accoutns-sidebar')">
+            <mat-icon>menu</mat-icon>
+        </button>
+
+        <div>
+            
+            <button mat-icon-button (click)="go_back()">
+                <mat-icon>arrow_back</mat-icon>
+            </button> 
+
+       
+        </div>
+
+    </div>
+
+    <!-- / HEADER -->
+
+    <!-- CONTENT -->
+    <div class="content">
+
+        <!-- SIDEBAR -->
+        <fuse-sidebar class="sidebar" name="asociados-sidebar" position="left" lockedOpen="gt-md">
+
+            <!-- SIDEBAR CONTENT -->
+            <div class="content pt-24 pb-24 pl-24" fusePerfectScrollbar>
+                <app-accounts-list-sidebar></app-accounts-list-sidebar>
+            </div>
+            <!-- / SIDEBAR CONTENT -->
+
+        </fuse-sidebar>
+        <!-- / SIDEBAR -->
+
+        <!-- CENTER -->
+        <div class="center p-24">
+            <!-- CONTENT -->
+
+
+            <div class="content p-24">
+                <app-account-detail-tabs></app-account-detail-tabs>
+                <!-- <ng-container *ngComponentOutlet="dummyComponent"></ng-container> -->
+                <!-- <ng-container *ngComponentOutlet="dummyComponent"></ng-container> -->
+            </div>
+            <!-- / CONTENT -->
+
+        </div>
+        <!-- / CENTER -->
+
+    </div>
+    <!-- / CONTENT -->
+
+</div>

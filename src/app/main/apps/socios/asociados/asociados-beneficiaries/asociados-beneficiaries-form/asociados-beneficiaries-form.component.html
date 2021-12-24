@@ -1,0 +1,104 @@
+
+
+    <form mat-dialog-content class="p-24 pb-0 m-0" fxLayout="column" fxFlex="1 0 auto" #benficiaryForm="ngForm" >
+        <h3>{{this.dialogTitle}}</h3>
+
+        <div fxLayout="row" fxLayoutAlign="start start" fxFlex="1 0 auto">
+            <mat-form-field appearance="outline" fxFlex="100">                
+                <mat-label>Nombre del {{this.title}}</mat-label>
+                <input matInput [(ngModel)]="this.beneficiary.person.nameComplete" name="name" id="name" required>
+                <mat-icon matSuffix class="secondary-text">person</mat-icon>
+            </mat-form-field>
+        </div>
+
+        
+        <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
+            <mat-form-field appearance="outline" fxFlex="50" class="pr-4">
+                <mat-label>Fecha Nacimiento</mat-label>
+                <input matInput [matDatepicker]="picker"   [(ngModel)]="this.beneficiary.person.birthday" name="birthday" id="birthday">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+
+
+            <mat-form-field appearance="outline" fxFlex="50" class="pl-4"> 
+                <mat-label>Teléfono de Contacto </mat-label>
+                <input matInput type="number" [(ngModel)]="this.beneficiary.phone.phone" name="phone" id="phone">
+                <mat-icon matSuffix class="secondary-text">smartphone</mat-icon>
+            </mat-form-field>
+        </div>
+
+        <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
+            <mat-form-field appearance="outline" fxFlex="100" class="pr-4"> 
+                <mat-label>correo electrónico</mat-label>
+                <input matInput [(ngModel)]="this.beneficiary.person.email" name="email" id="email">
+                <mat-icon matSuffix class="secondary-text">attach_email</mat-icon>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" fxFlex="50" class="pl-4"> 
+                <mat-label>Parentezco</mat-label>
+                <mat-select  required [(ngModel)]="this.beneficiary.kinship.typologyId" name="kinship" id ="kinship" >
+                    <mat-option *ngFor="let parentezco of parentezcosTypologies.childTypologies" [value]="parentezco.typologyId" >
+                        {{parentezco.description}}
+                    </mat-option>
+                </mat-select>
+                <mat-icon matSuffix class="secondary-text">wc</mat-icon>
+                <mat-error>Seleccione Parentezco!</mat-error>
+            </mat-form-field>
+        </div>
+
+
+
+
+
+        <!-- <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
+            <mat-slide-toggle [(ngModel)]="this.address.leader" name="leader" id="leader">Establecer como Principal</mat-slide-toggle>
+        </div> -->
+
+
+        <div mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center">
+
+            <button mat-raised-button color="primary"
+                class="mr-8"
+                (click)="matDialogRef.close()"
+                aria-label="Delete"
+                matTooltip="Delete">
+                Cancelar
+            </button>
+            <button *ngIf="action !== 'edit'"
+                    mat-raised-button
+                    color="primary"
+                    class="save-button"
+                    (click)="closeDigalog()"
+                    [disabled]="benficiaryForm.invalid"
+                    aria-label="SAVE">
+                Guardar
+            </button>
+    
+            <button *ngIf="action === 'edit'"
+                    mat-raised-button
+                    color="primary"
+                    class="save-button"
+                    (click)="closeDigalog()"
+                    [disabled]="benficiaryForm.invalid"
+                    aria-label="SAVE">
+                Actualizar
+            </button>
+
+        </div>
+
+        
+    </form>
+
+
+
+    <!-- <mat-form-field appearance="outline" fxFlex="50" class="pl-4" >
+        <mat-label>Municipio</mat-label>
+        <mat-select name="municipio" id="municipio" [(ngModel)]="this.address.city.typologyId"  required>
+            <mat-option *ngFor="let municipio of municipiosTypologies.childTypologies" [value]="municipio.typologyId">
+                {{municipio.description}}
+            </mat-option>
+        </mat-select>
+        <mat-icon matSuffix class="secondary-text">location_on</mat-icon>
+        <mat-error>Municipio es requerido!</mat-error>
+    </mat-form-field> -->

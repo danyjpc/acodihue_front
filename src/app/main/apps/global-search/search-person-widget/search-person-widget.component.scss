@@ -1,0 +1,23 @@
+.full-width{
+    width: 100% !important;
+    max-width: 100% !important;
+}
+
+mat-card-actions{
+    text-align: right !important;
+}
+
+.mat-icon.avatar {
+    background-repeat: no-repeat;
+    display: inline-block;
+    fill: currentColor;
+    height: 120px;
+    width: 120px;
+    font-size: 90px;
+    color:gray !important;
+}
+
+.w90{
+    max-width: 90% !important;
+    width: 90% !important;
+}

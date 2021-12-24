@@ -1,0 +1,23 @@
+<h3>Seleccione el documento a descargar que generara el sistema automaticamente</h3>
+<table mat-table [dataSource]="listDocD" class="mat-elevation-z8">
+    <!-- Name Column -->
+    <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef> Documento </th>
+        <td mat-cell *matCellDef="let element"> {{element.nameDocument}} </td>
+    </ng-container>
+
+    <!-- Position Column -->
+    <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef> Accion </th>
+        <td mat-cell *matCellDef="let element"> 
+            <button mat-raised-button (click)="downloadDocument(element)"><mat-icon>get_app</mat-icon></button>
+        </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+<br>
+<div mat-dialog-actions>
+    <button mat-raised-button (click)="this.matDialogRef.close()" class="primary">cancelar</button>
+</div>

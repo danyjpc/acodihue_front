@@ -1,0 +1,79 @@
+<mat-card [ngStyle]="{'background': this.color}">
+
+    <ng-container *ngIf="!this.links; then listTemplate; else linskTemplate"></ng-container>
+
+    
+
+
+    <mat-card-actions fxLayoutAlign="end end" style="padding: 0 !important;"> 
+        <span style="margin-bottom: 8px;margin-right: 5%; text-decoration: underline;" >Saldo Disponible: {{account.balance | currency : 'GTQ' :'symbol'}}</span>
+
+
+        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu">
+            <ng-container *ngIf="!this.links" >
+              <!-- <button (click)="account_details(account.personAccount)" mat-menu-item>
+                <mat-icon>account_balance</mat-icon>
+                <span>Ver Movimientos de Cuenta</span>
+              </button> -->
+
+              <button  *ngFor="let option of menuOptions"(click)="go_to_url(option)" mat-menu-item>
+                <span>{{option.title}}</span>
+              </button>
+
+            </ng-container>
+            
+
+            
+            
+ 
+            <button (click)="go_to_perfil(account)" *ngIf="this.links" mat-menu-item>
+              <mat-icon>person</mat-icon>
+              <span>Ver perfil del socio</span>
+            </button>
+          </mat-menu>
+          
+    </mat-card-actions>
+
+</mat-card>
+
+
+
+<ng-template #linskTemplate>
+  <table  style="font-size: 12px !important; width: 100%;">  
+    <tr>
+        <td><mat-icon>person</mat-icon></td>
+        <td>{{account.personAccount.organizationResponsible.person | fullNamePipe | uppercase  }}</td>
+    </tr>
+    <tr>
+      <td><mat-icon>account_balance</mat-icon></td>
+      <td>{{account.personAccount.accountType.description | uppercase}}</td>
+    </tr>
+    <tr>
+        <td><mat-icon>fingerprint</mat-icon></td>
+        <td>{{account.personAccount.numAccount}}</td>
+    </tr>
+</table>
+</ng-template>
+
+
+<ng-template #listTemplate>
+  <table  style="font-size: 12px !important; width: 100%;">  
+    <tr>
+        <td class="col-25"> <strong> Tipo de Cuenta: </strong></td>
+        <td class="col-70">{{account.personAccount.accountType.description}}</td>
+    </tr>
+    <tr>
+        <td class="col-25"><strong> Estado:</strong></td>
+        <td class="col-70">{{account.personAccount.status.description}}</td>
+    </tr>
+    <tr>
+        <td class="col-25"><strong>Número de Cuenta</strong></td>
+        <td class="col-70">{{account.personAccount.numAccount}}</td>
+    </tr>
+</table>
+
+</ng-template>
+

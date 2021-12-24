@@ -1,0 +1,72 @@
+
+    <form mat-dialog-content class="p-24 pb-0 m-0" fxLayout="column" fxFlex="1 0 auto" #creditForm="ngForm" >
+        <h3>Por Favor ingrese Datos Adicionales para aperturar el credito.</h3>
+
+        <mat-form-field appearance="outline" fxFlex="100" class=""> 
+            <mat-label>Confirmar Ocupación del Asociado</mat-label>
+            <mat-select  required [(ngModel)]="this.credit.occupation.typologyId" name="occupation" id ="occupation" >
+                <mat-option *ngFor="let occupation of ocupaciones.childTypologies" [value]="occupation.typologyId" >
+                    {{occupation.description}}
+                </mat-option>
+            </mat-select>
+            <mat-error>Seleccione Ocupación!</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" fxFlex="100" class=""> 
+            <mat-label>Confirmar Agencia de Apertura</mat-label>
+            <mat-select  required [(ngModel)]="this.credit.organization.organizationKey" name="agency" id ="agnecy" >
+                <mat-option *ngFor="let agency of agencies" [value]="agency.organizationKey" >
+                    {{agency.organizationName}}
+                </mat-option>
+            </mat-select>
+            <mat-error>Seleccione Ocupación!</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" fxFlex="100" class=""> 
+            <mat-label>Confirmar Estado de Operación Inicial  del  crédito </mat-label>
+            <mat-select  required [(ngModel)]="this.credit.statusOperated.typologyId" name="statusOperated" id ="statusOperated" >
+                <mat-option *ngFor="let statusOperate of this.StatusOperateTypology.childTypologies" [value]="statusOperate.typologyId" >
+                    {{statusOperate.description}}
+                </mat-option>
+            </mat-select>
+            <mat-error>Seleccione Ocupación!</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" fxFlex="100">                
+            <mat-label>Observaciones Adicionales</mat-label>
+            <textarea  matInput name="annotation" id="annotation"  [(ngModel)]="this.credit.annotation" ></textarea>
+        </mat-form-field>
+
+   
+
+        <div fxFlex="100">
+            <span>El asociado cuenta con vivienda propia?</span><br>
+            <mat-slide-toggle  [(ngModel)]="this.credit.ownHouse" name="ownHouse" id="ownHouse"></mat-slide-toggle>
+        </div>
+
+
+
+        <div mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center">
+
+            <button mat-raised-button color="primary"
+                class="mr-8"
+                (click)="matDialogRef.close()"
+                aria-label="Delete"
+                matTooltip="Delete">
+                Cancelar
+            </button>
+            <button mat-raised-button
+                    color="primary"
+                    class="save-button"
+                    (click)="send_info_to_create_credit()"
+                    [disabled]="creditForm.invalid"
+                    aria-label="SAVE">
+                Guardar
+            </button>
+
+
+        </div>
+
+        
+    </form>
+

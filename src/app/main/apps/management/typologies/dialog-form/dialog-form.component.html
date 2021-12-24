@@ -1,0 +1,33 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar class="mat-accent m-0">
+        <mat-toolbar-row fxFlex fxLayout="row" fxLayoutAlign="space-between center">
+            <span class="title dialog-title">{{tittle}}</span>
+            <button mat-icon-button (click)="matDialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+
+    <div mat-dialog-content class="pt-16 pb-16 pl-0 pr-0  m-0">
+
+        <form name="eventForm" class="event-form w-100-p" fxLayout="column" fxFlex="100" [formGroup]="typologyForm">
+
+            <mat-form-field appearance="outline" class="w-100-p">
+                <mat-label>Nombre del Catalogo</mat-label>
+                <input type="text" [(ngModel)]="typology.description" matInput formControlName="typologyName" placeholder="Escriba el nombre del catalogo">
+            </mat-form-field>
+
+        </form>
+    </div>
+
+    <div mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center">
+        <button *ngIf="tittle === 'Nuevo Catalogo'" mat-button color="primary" [disabled]="typologyForm.invalid" (click)="saveTypology(typology)" class="save-button accent" aria-label="SAVE">
+            Guardar
+        </button>
+
+        <button *ngIf="tittle === 'Actualizar Catalogo'" mat-button color="primary" [disabled]="typologyForm.invalid" (click)="saveTypology(typology)" class="save-button accent" aria-label="SAVE">
+            Actualizar
+        </button>
+
+    </div>
+</div>

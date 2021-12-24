@@ -1,0 +1,139 @@
+
+
+    <form mat-dialog-content class="p-24 pb-0 m-0" fxLayout="column" fxFlex="1 0 auto" #creditActivityForm="ngForm" >
+        <h3>{{this.title}}</h3>
+
+        <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
+
+
+            <mat-form-field appearance="outline" fxFlex="50" class="pr-4"> 
+                <mat-label>Destiono de Crédito</mat-label>
+                <mat-select  required [(ngModel)]="this.creditActivity.destiny.typologyId" name="destiny" id ="destiny" >
+                    <mat-option *ngFor="let destino of DestinosTypologyes.childTypologies" [value]="destino.typologyId" >
+                        {{destino.description}}
+                    </mat-option>
+                </mat-select>
+                <mat-icon matSuffix class="secondary-text">wc</mat-icon>
+                <mat-error>Seleccione Destino de Crédito!</mat-error>
+            </mat-form-field>
+
+
+            <mat-form-field appearance="outline" fxFlex="50" class="pl-4"> 
+                <mat-label>Actividad Económica</mat-label>
+                <mat-select  required [(ngModel)]="this.creditActivity.activityEconomic.typologyId" name="activityEconomic" id ="activityEconomic" >
+                    <mat-option *ngFor="let actividad of ActividadesTypologyes.childTypologies" [value]="actividad.typologyId" >
+                        {{actividad.description}}
+                    </mat-option>
+                </mat-select>
+                <mat-icon matSuffix class="secondary-text">wc</mat-icon>
+                <mat-error>Seleccione Actividad Económica!</mat-error>
+            </mat-form-field>
+        </div>
+
+        <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
+            <mat-form-field appearance="outline" fxFlex="50" class="pr-4">                
+                <mat-label>Area</mat-label>
+                <input matInput [(ngModel)]="this.creditActivity.area" name="area" id="area" required>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" fxFlex="25" class="pl-4"> 
+                <mat-label>Unidad de Médida </mat-label>
+                <mat-select  required [(ngModel)]="this.creditActivity.unitMeasure.typologyId" name="unitMeasure" id ="unitMeasure" >
+                    <mat-option *ngFor="let unidadMedida of UnidadesDeMedidasTypologyes.childTypologies" [value]="unidadMedida.typologyId" >
+                        {{unidadMedida.description}}
+                    </mat-option>
+                </mat-select>
+                <mat-icon matSuffix class="secondary-text">wc</mat-icon>
+                <mat-error>Seleccione Unidad de Medida</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" fxFlex="25" class="pl-4">                
+                <mat-label>Cantidad</mat-label>
+                <input matInput [(ngModel)]="this.creditActivity.quantity" name="quantity" id="quantity" required>
+            </mat-form-field>
+
+        </div>
+
+        <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
+            <mat-form-field appearance="outline" fxFlex="50" class="pr-4">                
+                <mat-label>Precio</mat-label>
+                <input matInput type ="number" [(ngModel)]="this.creditActivity.price" name="price" id="price" required>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" fxFlex="50" class="pl-4">                
+                <mat-label>Ingreso</mat-label>
+                <input  type ="number" matInput [(ngModel)]="this.creditActivity.earnings" name="earnings" id="earnings" required>
+                
+            </mat-form-field>
+        </div>
+
+        <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
+            <mat-form-field appearance="outline" fxFlex="100" >                
+                <mat-label>Anotaciónes</mat-label>
+                <textarea  matInput name="annotation" id="annotation"  [(ngModel)]="this.creditActivity.annotation" ></textarea>                
+            </mat-form-field>
+        </div>
+
+        
+        <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
+            <mat-slide-toggle [(ngModel)]="this.creditActivity.isApparel" name="isApparel" id="isApparel">Actividad Prendaria</mat-slide-toggle>
+        </div>
+
+        <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
+            <mat-slide-toggle [(ngModel)]="this.creditActivity.isFiduciary" name="isFiduciary" id="isFiduciary">Actividad Fiduciaria</mat-slide-toggle>
+        </div>
+
+
+
+
+        <!-- <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
+            <mat-slide-toggle [(ngModel)]="this.address.leader" name="leader" id="leader">Establecer como Principal</mat-slide-toggle>
+        </div> -->
+
+
+        <div mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center">
+
+            <button mat-raised-button color="primary"
+                class="mr-8"
+                (click)="dialogRef.close()"
+                aria-label="Delete"
+                matTooltip="Delete">
+                Cancelar
+            </button>
+            <button *ngIf="action !== 'edit'"
+                    mat-raised-button
+                    color="primary"
+                    class="save-button"
+                    (click)="closeDigalog()"
+                    [disabled]="creditActivityForm.invalid"
+                    aria-label="SAVE">
+                Guardar
+            </button>
+    
+            <button *ngIf="action === 'edit'"
+                    mat-raised-button
+                    color="primary"
+                    class="save-button"
+                    (click)="closeDigalog()"
+                    [disabled]="creditActivityForm.invalid"
+                    aria-label="SAVE">
+                Actualizar
+            </button>
+
+        </div>
+
+        
+    </form>
+
+
+
+    <!-- <mat-form-field appearance="outline" fxFlex="50" class="pl-4" >
+        <mat-label>Municipio</mat-label>
+        <mat-select name="municipio" id="municipio" [(ngModel)]="this.address.city.typologyId"  required>
+            <mat-option *ngFor="let municipio of municipiosTypologies.childTypologies" [value]="municipio.typologyId">
+                {{municipio.description}}
+            </mat-option>
+        </mat-select>
+        <mat-icon matSuffix class="secondary-text">location_on</mat-icon>
+        <mat-error>Municipio es requerido!</mat-error>
+    </mat-form-field> -->

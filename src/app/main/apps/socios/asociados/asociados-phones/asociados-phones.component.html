@@ -1,0 +1,18 @@
+
+<div fxLayout="column">
+    <div fxLayout="row" class="pb-8" fxLayoutAlign="end end">
+        <!-- <button mat-raised-button color="primary" ><mat-icon>add</mat-icon> Agregar Télefono</button> -->
+
+        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="phone-menu">
+            <mat-icon>more_horiz</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu">
+            <button (click)="new_phone()" mat-menu-item>
+              <mat-icon>voicemail</mat-icon>
+              <span>Agregar Télefono</span>
+            </button>
+          </mat-menu>
+          
+    </div>
+    <app-asociados-phones-list></app-asociados-phones-list>
+</div>

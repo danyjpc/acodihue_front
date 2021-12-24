@@ -1,0 +1,46 @@
+<div style="text-align: right;" class="m-8">
+  <button (click)="newCotization()" mat-raised-button> <mat-icon>ballot</mat-icon> Nueva Cotización de Crédito</button>
+</div>
+<table mat-table [dataSource]="this.cotizations" class="mat-elevation-z8">
+
+    <!--- Note that these columns can be defined in any order.
+          The actual rendered columns are set as a property on the row definition" -->
+  
+    <!-- Position Column -->
+    <ng-container matColumnDef="monto">
+      <th mat-header-cell *matHeaderCellDef> Monto Solicitado </th>
+      <td mat-cell *matCellDef="let cotization"> {{cotization.credit | currency : 'GTQ': 'symbol'}} </td>
+    </ng-container>
+  
+    <!-- Name Column -->
+    <ng-container matColumnDef="date">
+      <th mat-header-cell *matHeaderCellDef> Fecha Solicitud </th>
+      <td mat-cell *matCellDef="let cotization"> {{cotization.applicationDate | date : 'shortDate'}} </td>
+    </ng-container>
+  
+    <!-- Weight Column -->
+    <ng-container matColumnDef="plazo">
+      <th mat-header-cell *matHeaderCellDef> Plazo Años </th>
+      <td mat-cell *matCellDef="let cotization"> {{cotization.noPeriod}} </td>
+    </ng-container>
+  
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="cuotas">
+      <th mat-header-cell *matHeaderCellDef> Pagos </th>
+      <td mat-cell *matCellDef="let cotization"> {{cotization.noPayments}} </td>
+    </ng-container>
+
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef>  </th>
+        <td mat-cell *matCellDef="let cotization"> 
+            <button (click)="ViewCotization(cotization)"  class="m-4 secondary" mat-icon-button matTooltip="Ver cotización"><mat-icon>visibility</mat-icon></button>
+            <button  (click)="printCotization(cotization)" class="m-4 secondary" mat-icon-button matTooltip="Imprimir cotización"><mat-icon>print</mat-icon></button>
+            <button  (click)="createExpediente(cotization)" class="m-4 secondary" mat-icon-button matTooltip="Iniciar expediente"><mat-icon>play_arrow</mat-icon></button>
+        </td>
+    </ng-container>
+  
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+  

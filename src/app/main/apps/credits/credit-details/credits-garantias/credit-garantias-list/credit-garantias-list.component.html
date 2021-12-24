@@ -1,0 +1,59 @@
+<div fxLayout="column">
+    <div fxLayout="row" class="pb-8" fxLayoutAlign="end end">
+        <!-- <button mat-raised-button color="primary" (click)="newBeneficiary()"><mat-icon>add</mat-icon> Agregar Conyuge</button> -->
+        
+          <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="phone-menu">
+            <mat-icon>more_horiz</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu">
+            <button (click)="new_credit_guarantee()" mat-menu-item>
+              <mat-icon>add</mat-icon>
+              <span>Agregar Nueva Garantia de Crédito</span>
+            </button>
+          </mat-menu>
+    </div>
+    <table mat-table [dataSource]="guarantees" class="mat-elevation-z8">
+  
+      <!--- Note that these columns can be defined in any order.
+            The actual rendered columns are set as a property on the row definition" -->
+    
+      <!-- Position Column -->
+      <ng-container matColumnDef="no">
+        <th mat-header-cell *matHeaderCellDef> Número de Garantia  </th>
+        <td mat-cell *matCellDef="let guarantee">  {{guarantee.noReference}}-{{guarantee.noYear}}</td>
+      </ng-container>
+    
+      <!-- Name Column -->
+      <ng-container matColumnDef="fecha">
+        <th mat-header-cell *matHeaderCellDef> Fecha de Avaluo </th>
+        <td mat-cell *matCellDef="let guarantee"> {{guarantee.dateCreated | date : 'mediumDate'}} </td>
+      </ng-container>
+    
+      <!-- Weight Column -->
+      <ng-container matColumnDef="propietario">
+        <th mat-header-cell *matHeaderCellDef> Propietario </th>
+        <td mat-cell *matCellDef="let guarantee"> {{guarantee.owner}}</td>
+      </ng-container>
+            <!-- Weight Column -->
+      <ng-container matColumnDef="address">
+        <th mat-header-cell *matHeaderCellDef> Ubicación de Garantía </th>
+        <td mat-cell *matCellDef="let guarantee"> 
+            <span>Departamento de:  {{guarantee.address.state.description}}</span> <br>
+            <span>Municipio de:  {{guarantee.address.city.description}}</span> <br>
+            <span>{{guarantee.address.addressLine}}</span>
+        </td>
+      </ng-container>
+    
+      <!-- Symbol Column -->
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef> Acciones </th>
+        <td mat-cell *matCellDef="let guarantee"> 
+          <button (click)="open_edit_modal(guarantee)" mat-icon-button><mat-icon>edit</mat-icon> Editar </button>
+        </td>
+      </ng-container>
+    
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </div>
+    
